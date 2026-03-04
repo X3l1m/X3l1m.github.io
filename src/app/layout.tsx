@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Selim Yildirim — Software Engineer",
   description:
     "Full Stack Developer building robust, scalable applications. TypeScript, React, Next.js, Node.js.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Selim Yildirim — Software Engineer",
     description:

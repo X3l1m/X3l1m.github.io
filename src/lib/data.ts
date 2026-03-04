@@ -11,7 +11,15 @@ export const personalInfo = {
 export const aboutText =
   "Full Stack Developer at Basic-Fit, working across the entire development lifecycle with TypeScript, React, and Node.js. Educated at Codam Coding College (42 Network), where I built a strong foundation in computer science through self-directed, project-based learning — from reimplementing C standard library functions to building full-stack web applications.";
 
-export const projects = [
+export type Project = {
+  title: string;
+  description: string;
+  tech: string[];
+  github: string;
+  demo?: string;
+};
+
+export const projects: Project[] = [
   {
     title: "ft_transcendence",
     description:
@@ -19,14 +27,14 @@ export const projects = [
     tech: ["TypeScript", "NestJS", "PostgreSQL", "Docker", "WebSockets"],
     github: "https://github.com/X3l1m/transcendence",
   },
-  {
-    title: "kiosk06",
-    description:
-      "Modern web application built with Next.js and Tailwind CSS, featuring a component-based architecture and responsive design.",
-    tech: ["TypeScript", "Next.js", "React", "Tailwind CSS"],
-    github: "https://github.com/X3l1m/kiosk06",
-    demo: "https://kiosk06.vercel.app",
-  },
+  // {
+  //   title: "kiosk06",
+  //   description:
+  //     "Modern web application built with Next.js and Tailwind CSS, featuring a component-based architecture and responsive design.",
+  //   tech: ["TypeScript", "Next.js", "React", "Tailwind CSS"],
+  //   github: "https://github.com/X3l1m/kiosk06",
+  //   demo: "https://kiosk06.vercel.app",
+  // },
   {
     title: "cub3d",
     description:
@@ -40,6 +48,20 @@ export const projects = [
       "A Unix shell built from scratch with support for pipes, redirections, environment variables, and signal handling.",
     tech: ["C", "Unix", "Process Management", "Parsing"],
     github: "https://github.com/X3l1m/minishell",
+  },
+  {
+    title: "webserv",
+    description:
+      "HTTP/1.1 web server built from scratch, handling GET, POST, and DELETE requests with CGI support and non-blocking I/O.",
+    tech: ["C++", "HTTP", "Sockets", "I/O Multiplexing"],
+    github: "https://github.com/X3l1m/webserv",
+  },
+  {
+    title: "so_long",
+    description:
+      "2D tile-based game with sprite rendering, map parsing, and player movement using a minimal graphics library.",
+    tech: ["C", "MiniLibX", "Graphics", "Game Logic"],
+    github: "https://github.com/X3l1m/so_long",
   },
 ];
 

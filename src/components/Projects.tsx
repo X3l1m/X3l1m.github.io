@@ -27,9 +27,9 @@ export default function Projects() {
   return (
     <section id="projects" className="px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <SectionHeading>Selected Projects</SectionHeading>
+        <SectionHeading>Projects</SectionHeading>
 
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
