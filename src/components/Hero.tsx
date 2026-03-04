@@ -1,0 +1,65 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { personalInfo } from "@/lib/data";
+
+export default function Hero() {
+  return (
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      {/* Gradient orb background */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-gradient-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
+
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-4 text-sm font-medium tracking-widest text-muted uppercase"
+        >
+          {personalInfo.role}
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-6 text-5xl font-bold tracking-tight sm:text-7xl"
+        >
+          Hi, I&apos;m{" "}
+          <span className="bg-gradient-to-r from-accent-from to-accent-to bg-clip-text text-transparent">
+            {personalInfo.name.split(" ")[0]}
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mx-auto mb-10 max-w-lg text-lg text-muted"
+        >
+          {personalInfo.tagline}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex items-center justify-center gap-4"
+        >
+          <a
+            href="#projects"
+            className="rounded-full bg-gradient-to-r from-accent-from to-accent-to px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            View Projects
+          </a>
+          <a
+            href="#contact"
+            className="rounded-full border border-border px-6 py-3 text-sm font-medium text-muted transition-colors hover:border-foreground hover:text-foreground"
+          >
+            Get in Touch
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
