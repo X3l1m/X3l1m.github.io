@@ -36,6 +36,15 @@ body {
   background: rgba(99, 102, 241, 0.3);
 }
 
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 .beta-badge {
   position: fixed;
   top: 16px;
