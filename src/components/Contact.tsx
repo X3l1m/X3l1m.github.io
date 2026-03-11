@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 import SectionHeading from "./SectionHeading";
+import Section from "./Section";
 
 const links = [
   {
@@ -59,43 +60,43 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-32">
-      <div className="mx-auto max-w-5xl text-center">
-        <SectionHeading>Get in Touch</SectionHeading>
+    <Section id="contact">
+      <SectionHeading>Get in Touch</SectionHeading>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: false, amount: 0.4 }}
-          className="mx-auto mb-10 max-w-md text-muted"
-        >
-          Open to new opportunities and interesting projects. Feel free to reach
-          out.
-        </motion.p>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: false, amount: 0.4 }}
+        className="mx-auto mb-10 max-w-md text-center text-muted"
+      >
+        Open to new opportunities and interesting projects. Feel free to reach
+        out.
+      </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: false, amount: 0.4 }}
-          className="flex items-center justify-center gap-4"
-        >
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
-              rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-              className="flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm text-muted transition-all hover:border-accent-from/40 hover:text-foreground"
-              aria-label={link.label}
-            >
-              {link.icon}
-              <span className="hidden sm:inline">{link.label}</span>
-            </a>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        viewport={{ once: false, amount: 0.4 }}
+        className="flex items-center justify-center gap-4"
+      >
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target={link.href.startsWith("mailto") ? undefined : "_blank"}
+            rel={
+              link.href.startsWith("mailto") ? undefined : "noopener noreferrer"
+            }
+            className="flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm text-muted transition-all hover:border-accent-from/40 hover:text-foreground"
+            aria-label={link.label}
+          >
+            {link.icon}
+            <span className="hidden sm:inline">{link.label}</span>
+          </a>
+        ))}
+      </motion.div>
+    </Section>
   );
 }
