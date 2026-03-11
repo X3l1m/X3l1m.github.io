@@ -2,12 +2,17 @@
 
 import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
+import Section from "./Section";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+    <Section
+      id="hero"
+      withContainer={false}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+    >
       {/* Gradient orb background */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-gradient-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-linear-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <motion.p
@@ -48,7 +53,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="rounded-full bg-gradient-to-r from-accent-from to-accent-to px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="rounded-full bg-linear-to-r from-accent-from to-accent-to px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             View Projects
           </a>
@@ -60,6 +65,6 @@ export default function Hero() {
           </a>
         </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }
