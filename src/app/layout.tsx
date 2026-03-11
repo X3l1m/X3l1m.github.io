@@ -28,11 +28,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const deployBranch = process.env.NEXT_PUBLIC_DEPLOY_BRANCH;
+  const isBetaDeploy = Boolean(deployBranch && deployBranch !== "main");
+
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {isBetaDeploy && (
+          <div className="beta-badge" aria-label="Beta deployment">
+            <span className="beta-badge__text">BETA</span>
+          </div>
+        )}
         {children}
       </body>
     </html>
