@@ -5,7 +5,7 @@ import { personalInfo } from "@/lib/data";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+    <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       {/* Gradient orb background */}
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-gradient-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
 
