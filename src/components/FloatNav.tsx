@@ -121,23 +121,32 @@ const navItems = [
 export default function FloatNav() {
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const activeRef = useRef(0);
   const isAnimatingRef = useRef(false);
   const animationUnlockRef = useRef<number | null>(null);
 
-  const blobY = useMotionValue(0);
-  const yVelocity = useVelocity(blobY);
-  const scaleX = useTransform(yVelocity, [-600, 0, 600], [0.68, 1, 0.68]);
-  const scaleY = useTransform(yVelocity, [-600, 0, 600], [1.6, 1, 1.6]);
+  const blobProgress = useMotionValue(0);
+  const blobVelocity = useVelocity(blobProgress);
+  const squash = useTransform(blobVelocity, [-600, 0, 600], [0.68, 1, 0.68]);
+  const stretch = useTransform(blobVelocity, [-600, 0, 600], [1.6, 1, 1.6]);
 
   useEffect(() => {
-    animate(blobY, active * STRIDE, {
+    const media = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    animate(blobProgress, active * STRIDE, {
       type: "spring",
       stiffness: 260,
       damping: 20,
       mass: 0.9,
     });
-  }, [active, blobY]);
+  }, [active, blobProgress]);
 
   useEffect(() => {
     activeRef.current = active;
@@ -264,12 +273,14 @@ export default function FloatNav() {
       <nav
         style={{
           position: "fixed",
-          right: 24,
-          top: "50%",
-          transform: "translateY(-50%)",
+          right: isMobile ? "auto" : 24,
+          top: isMobile ? "auto" : "50%",
+          left: isMobile ? "50%" : "auto",
+          bottom: isMobile ? 16 : "auto",
+          transform: isMobile ? "translateX(-50%)" : "translateY(-50%)",
           zIndex: 50,
-          width: ITEM_SIZE,
-          height: navItems.length * STRIDE - GAP,
+          width: isMobile ? navItems.length * STRIDE - GAP : ITEM_SIZE,
+          height: isMobile ? ITEM_SIZE : navItems.length * STRIDE - GAP,
         }}
         aria-label="Section navigation"
       >
@@ -285,8 +296,8 @@ export default function FloatNav() {
                 position: "absolute",
                 width: ITEM_SIZE,
                 height: ITEM_SIZE,
-                top: i * STRIDE,
-                left: 0,
+                top: isMobile ? 0 : i * STRIDE,
+                left: isMobile ? i * STRIDE : 0,
                 borderRadius: "50%",
                 background: [
                   "radial-gradient(circle at 38% 32%, rgba(99,102,241,0.22) 0%, transparent 65%)",
@@ -310,9 +321,10 @@ export default function FloatNav() {
                 "radial-gradient(circle at 72% 76%, rgba(79,30,180,0.55) 0%, rgba(79,30,180,0.0) 52%)",
                 "linear-gradient(145deg, #a5b4fc 0%, #6366f1 30%, #8b5cf6 65%, #6d28d9 100%)",
               ].join(", "),
-              y: blobY,
-              scaleX,
-              scaleY,
+              x: isMobile ? blobProgress : 0,
+              y: isMobile ? 0 : blobProgress,
+              scaleX: isMobile ? stretch : squash,
+              scaleY: isMobile ? squash : stretch,
               transformOrigin: "center center",
             }}
           />
@@ -328,8 +340,8 @@ export default function FloatNav() {
             aria-label={item.label}
             style={{
               position: "absolute",
-              top: i * STRIDE,
-              left: 0,
+              top: isMobile ? 0 : i * STRIDE,
+              left: isMobile ? i * STRIDE : 0,
               width: ITEM_SIZE,
               height: ITEM_SIZE,
               display: "flex",
@@ -360,9 +372,12 @@ export default function FloatNav() {
               transition={{ duration: 0.12, ease: "easeOut" }}
               style={{
                 position: "absolute",
-                right: ITEM_SIZE + 10,
-                top: hovered * STRIDE + ITEM_SIZE / 2,
-                transform: "translateY(-50%)",
+                right: isMobile ? "auto" : ITEM_SIZE + 10,
+                left: isMobile ? hovered * STRIDE + ITEM_SIZE / 2 : "auto",
+                top: isMobile ? -10 : hovered * STRIDE + ITEM_SIZE / 2,
+                transform: isMobile
+                  ? "translate(-50%, -100%)"
+                  : "translateY(-50%)",
                 background: "rgba(12, 12, 18, 0.92)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
