@@ -11,7 +11,7 @@ export const personalInfo = {
 export const aboutText =
   "Full Stack Developer at Basic-Fit, working across the entire development lifecycle with TypeScript, React, and Node.js. Educated at Codam Coding College (42 Network), where I built a strong foundation in computer science through self-directed, project-based learning — from reimplementing C standard library functions to building full-stack web applications.";
 
-export type Project = {
+type Project = {
   title: string;
   description: string;
   tech: string[];
@@ -82,11 +82,4 @@ export const skillCategories = [
     name: "DevOps & Tools",
     skills: ["Docker", "Git", "CI/CD", "Azure DevOps", "New Relic"],
   },
-];
-
-export const navLinks = [
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
 ];
