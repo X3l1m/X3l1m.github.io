@@ -31,7 +31,7 @@ export default function Hero() {
           className="mb-6 text-5xl font-bold tracking-tight sm:text-7xl"
         >
           Hi, I&apos;m{" "}
-          <span className="bg-gradient-to-r from-accent-from to-accent-to bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-accent-from to-accent-to bg-clip-text text-transparent">
             {personalInfo.name.split(" ")[0]}
           </span>
         </motion.h1>

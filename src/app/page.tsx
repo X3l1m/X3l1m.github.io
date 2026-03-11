@@ -1,4 +1,4 @@
-import SideNav from "@/components/SideNav";
+import FloatNav from "@/components/FloatNav";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
@@ -9,15 +9,20 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <SideNav />
-      <main>
+      <FloatNav />
+      <main
+        id="snap-root"
+        className="h-screen snap-y snap-mandatory overflow-y-auto"
+      >
         <Hero />
         <Projects />
         <Skills />
         <About />
         <Contact />
+        <div className="snap-start">
+          <Footer />
+        </div>
       </main>
-      <Footer />
     </>
   );
 }
