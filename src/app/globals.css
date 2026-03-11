@@ -35,3 +35,56 @@ body {
 ::selection {
   background: rgba(99, 102, 241, 0.3);
 }
+
+.beta-badge {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 231, 255, 0.42);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 23, 30, 0.96),
+    rgba(12, 18, 24, 0.96)
+  );
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.38),
+    0 0 10px rgba(34, 211, 238, 0.18),
+    0 0 0 1px rgba(165, 243, 252, 0.12) inset;
+}
+
+.beta-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: 0 0 8px rgba(103, 232, 249, 0.55);
+}
+
+.beta-badge__text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #cffafe;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .beta-badge {
+    top: 12px;
+    right: 12px;
+    gap: 7px;
+    padding: 6px 10px;
+  }
+
+  .beta-badge__text {
+    font-size: 10px;
+  }
+}
