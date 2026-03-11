@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   motion,
   useMotionValue,
@@ -121,6 +121,9 @@ const navItems = [
 export default function FloatNav() {
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
+  const activeRef = useRef(0);
+  const isAnimatingRef = useRef(false);
+  const animationUnlockRef = useRef<number | null>(null);
 
   const blobY = useMotionValue(0);
   const yVelocity = useVelocity(blobY);
@@ -137,15 +140,59 @@ export default function FloatNav() {
   }, [active, blobY]);
 
   useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  const scrollToIndex = useCallback((index: number) => {
+    const clampedIndex = Math.max(0, Math.min(navItems.length - 1, index));
+    const root = document.getElementById("snap-root");
+    const target = document.getElementById(navItems[clampedIndex].id);
+    if (!root || !target) return;
+
+    const rootRect = root.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const to = root.scrollTop + (targetRect.top - rootRect.top);
+
+    if (animationUnlockRef.current !== null) {
+      window.clearTimeout(animationUnlockRef.current);
+    }
+    isAnimatingRef.current = true;
+    setActive(clampedIndex);
+
+    root.scrollTo({
+      top: to,
+      behavior: "smooth",
+    });
+
+    animationUnlockRef.current = window.setTimeout(() => {
+      isAnimatingRef.current = false;
+      animationUnlockRef.current = null;
+    }, 700);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (animationUnlockRef.current !== null) {
+        window.clearTimeout(animationUnlockRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const observers: IntersectionObserver[] = [];
+    const root = document.getElementById("snap-root");
     navItems.forEach(({ id }, i) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActive(i);
+          if (entry.isIntersecting && !isAnimatingRef.current) setActive(i);
         },
-        { threshold: 0.35, rootMargin: "-15% 0px -15% 0px" },
+        {
+          root,
+          threshold: 0.55,
+          rootMargin: "-10% 0px -10% 0px",
+        },
       );
       obs.observe(el);
       observers.push(obs);
@@ -153,13 +200,35 @@ export default function FloatNav() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const handleClick = (index: number, href: string) => {
-    setActive(index);
-    if (href === "#hero") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-    }
+  useEffect(() => {
+    const root = document.getElementById("snap-root");
+    if (!root) return;
+
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaY) < 8) return;
+      if (isAnimatingRef.current) {
+        event.preventDefault();
+        return;
+      }
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const nextIndex = Math.max(
+        0,
+        Math.min(navItems.length - 1, activeRef.current + direction),
+      );
+
+      if (nextIndex === activeRef.current) return;
+      event.preventDefault();
+      scrollToIndex(nextIndex);
+    };
+
+    root.addEventListener("wheel", onWheel, { passive: false });
+    return () => root.removeEventListener("wheel", onWheel);
+  }, [scrollToIndex]);
+
+  const handleClick = (index: number) => {
+    if (isAnimatingRef.current) return;
+    scrollToIndex(index);
   };
 
   return (
@@ -253,7 +322,7 @@ export default function FloatNav() {
         {navItems.map((item, i) => (
           <button
             key={item.id}
-            onClick={() => handleClick(i, item.href)}
+            onClick={() => handleClick(i)}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
             aria-label={item.label}
