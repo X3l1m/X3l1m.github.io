@@ -25,7 +25,7 @@ function ArrowUpRight() {
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-6 py-24">
+    <section id="projects" className="px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <SectionHeading>Projects</SectionHeading>
 
@@ -36,7 +36,7 @@ export default function Projects() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               className="group rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.15)]"
             >
               <div className="mb-3 flex items-start justify-between">

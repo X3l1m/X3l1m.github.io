@@ -59,7 +59,7 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-24">
+    <section id="contact" className="px-6 py-32">
       <div className="mx-auto max-w-5xl text-center">
         <SectionHeading>Get in Touch</SectionHeading>
 
@@ -67,7 +67,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.4 }}
           className="mx-auto mb-10 max-w-md text-muted"
         >
           Open to new opportunities and interesting projects. Feel free to reach
@@ -78,7 +78,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.4 }}
           className="flex items-center justify-center gap-4"
         >
           {links.map((link) => (

@@ -6,7 +6,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function Skills() {
   return (
-    <section id="skills" className="px-6 py-24">
+    <section id="skills" className="px-6 py-32">
       <div className="mx-auto max-w-5xl">
         <SectionHeading>Skills & Tech Stack</SectionHeading>
 
@@ -17,7 +17,7 @@ export default function Skills() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: catIndex * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
             >
               <h3 className="mb-4 text-sm font-medium tracking-widest text-muted uppercase">
                 {category.name}
@@ -32,7 +32,7 @@ export default function Skills() {
                       duration: 0.3,
                       delay: catIndex * 0.1 + skillIndex * 0.05,
                     }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.2 }}
                     className="rounded-lg border border-border bg-card px-4 py-2 text-sm transition-colors hover:border-accent-from/40 hover:text-foreground"
                   >
                     {skill}
