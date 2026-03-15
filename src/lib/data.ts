@@ -11,12 +11,37 @@ export const personalInfo = {
 export const aboutText =
   "Full Stack Developer at Basic-Fit, working across the entire development lifecycle with TypeScript, React, and Node.js. Educated at Codam Coding College (42 Network), where I built a strong foundation in computer science through self-directed, project-based learning — from reimplementing C standard library functions to building full-stack web applications.";
 
+export const experience = [
+  {
+    role: "Full Stack Developer",
+    company: "Basic-Fit",
+    location: "Tilburg, Netherlands",
+    period: "May 2025 — Present",
+    description:
+      "Delivering production-ready features across multiple projects. Owning the full lifecycle — design, implementation, testing, deployment (Docker, Azure DevOps) and monitoring (New Relic). Integrating backend services with Redis and PostgreSQL.",
+    tech: ["TypeScript", "React", "Next.js", "NestJS", "Docker", "Azure DevOps", "New Relic", "Redis", "PostgreSQL"],
+  },
+];
+
+export const education = [
+  {
+    degree: "Computer Science",
+    institution: "Codam Coding College",
+    network: "42 Network",
+    location: "Amsterdam, Netherlands",
+    period: "Oct 2022 — Apr 2025",
+    description:
+      "Self-directed, project-based programming school. Built a strong CS foundation covering data structures, algorithms, multi-threading, networking, and low-level C — reimplementing core stdlib functions from scratch.",
+  },
+];
+
 type Project = {
   title: string;
   description: string;
   tech: string[];
   github: string;
   demo?: string;
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -26,15 +51,8 @@ export const projects: Project[] = [
       "Full-stack multiplayer Pong game with real-time gameplay, chat system, OAuth authentication, and user matchmaking.",
     tech: ["TypeScript", "NestJS", "PostgreSQL", "Docker", "WebSockets"],
     github: "https://github.com/X3l1m/transcendence",
+    featured: true,
   },
-  // {
-  //   title: "kiosk06",
-  //   description:
-  //     "Modern web application built with Next.js and Tailwind CSS, featuring a component-based architecture and responsive design.",
-  //   tech: ["TypeScript", "Next.js", "React", "Tailwind CSS"],
-  //   github: "https://github.com/X3l1m/kiosk06",
-  //   demo: "https://kiosk06.vercel.app",
-  // },
   {
     title: "cub3d",
     description:
