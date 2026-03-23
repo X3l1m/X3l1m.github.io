@@ -12,16 +12,14 @@ export default function Home() {
       <FloatNav />
       <main
         id="snap-root"
-        className="h-screen snap-y snap-mandatory overflow-y-auto"
+        className="h-screen overflow-y-auto"
       >
         <Hero />
         <Projects />
         <Skills />
         <About />
         <Contact />
-        <div className="snap-start">
-          <Footer />
-        </div>
+        <Footer />
       </main>
     </>
   );
