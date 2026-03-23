@@ -5,7 +5,6 @@ export const personalInfo = {
   email: "edibselim1@gmail.com",
   github: "https://github.com/X3l1m",
   linkedin: "https://linkedin.com/in/selim-yildirim-software",
-  location: "Amsterdam, Netherlands",
 };
 
 export const aboutText =
@@ -19,7 +18,17 @@ export const experience = [
     period: "May 2025 — Present",
     description:
       "Delivering production-ready features across multiple projects. Owning the full lifecycle — design, implementation, testing, deployment (Docker, Azure DevOps) and monitoring (New Relic). Integrating backend services with Redis and PostgreSQL.",
-    tech: ["TypeScript", "React", "Next.js", "NestJS", "Docker", "Azure DevOps", "New Relic", "Redis", "PostgreSQL"],
+    tech: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "NestJS",
+      "Docker",
+      "Azure DevOps",
+      "New Relic",
+      "Redis",
+      "PostgreSQL",
+    ],
   },
 ];
 

@@ -13,7 +13,13 @@ type TimelineEntry = {
   index: number;
 };
 
-function TimelineEntry({ title, subtitle, period, description, index }: TimelineEntry) {
+function TimelineEntry({
+  title,
+  subtitle,
+  period,
+  description,
+  index,
+}: TimelineEntry) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 16 }}
@@ -24,7 +30,9 @@ function TimelineEntry({ title, subtitle, period, description, index }: Timeline
     >
       <span className="absolute -left-1.25 top-1.75 block h-2.5 w-2.5 rounded-full border-2 border-accent-from bg-background" />
       <p className="text-sm font-semibold text-foreground">{title}</p>
-      <p className="mt-0.5 text-xs text-muted">{subtitle} · {period}</p>
+      <p className="mt-0.5 text-xs text-muted">
+        {subtitle} · {period}
+      </p>
       <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
     </motion.div>
   );
@@ -46,11 +54,6 @@ export default function About() {
           <p className="mb-8 max-w-xl text-base leading-relaxed text-muted">
             {aboutText}
           </p>
-
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.55)]" />
-            Open to new opportunities
-          </div>
         </motion.div>
 
         {/* Right: experience + education */}
