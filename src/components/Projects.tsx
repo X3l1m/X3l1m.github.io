@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data";
+import { useT } from "@/contexts/LanguageContext";
+import type { Strings } from "@/lib/strings";
 import SectionHeading from "./SectionHeading";
 import Section from "./Section";
 import ProjectPreview from "./ProjectPreview";
@@ -44,10 +46,21 @@ function ExternalIcon() {
   );
 }
 
+// Map project title → strings.ts key
+const PROJ_DESC_KEY: Record<string, keyof Strings> = {
+  ft_transcendence: "proj_ft_transcendence",
+  cub3d: "proj_cub3d",
+  minishell: "proj_minishell",
+  webserv: "proj_webserv",
+  so_long: "proj_so_long",
+};
+
 export default function Projects() {
+  const { t } = useT();
+
   return (
     <Section id="projects">
-      <SectionHeading>Projects</SectionHeading>
+      <SectionHeading>{t.section_projects}</SectionHeading>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
@@ -57,24 +70,19 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
             viewport={{ once: false, amount: 0.15 }}
-            className={`group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.18)]${project.featured ? " lg:col-span-2" : ""}`}
+            className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.18)]"
           >
             {/* Visual preview */}
-            <div className={`w-full shrink-0 overflow-hidden${project.featured ? " h-44 sm:h-52" : " h-36"}`}>
+            <div className="h-36 w-full shrink-0 overflow-hidden">
               <ProjectPreview title={project.title} />
             </div>
 
             {/* Card body */}
             <div className="flex flex-1 flex-col p-5">
               <div className="mb-3 flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-base font-semibold leading-tight">{project.title}</h3>
-                  {project.featured && (
-                    <span className="rounded-full border border-accent-from/30 bg-accent-from/10 px-2 py-0.5 text-[10px] font-medium text-accent-from">
-                      featured
-                    </span>
-                  )}
-                </div>
+                <h3 className="text-base font-semibold leading-tight">
+                  {project.title}
+                </h3>
                 <div className="flex shrink-0 items-center gap-1.5">
                   {project.demo && (
                     <a
@@ -100,16 +108,16 @@ export default function Projects() {
               </div>
 
               <p className="mb-4 flex-1 text-sm leading-relaxed text-muted">
-                {project.description}
+                {t[PROJ_DESC_KEY[project.title]] ?? ""}
               </p>
 
               <div className="flex flex-wrap gap-1.5">
-                {project.tech.map((t) => (
+                {project.tech.map((tech) => (
                   <span
-                    key={t}
+                    key={tech}
                     className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
                   >
-                    {t}
+                    {tech}
                   </span>
                 ))}
               </div>

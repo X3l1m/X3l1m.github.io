@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useT } from "@/contexts/LanguageContext";
 import {
   motion,
   useMotionValue,
@@ -119,6 +120,8 @@ const navItems = [
 ];
 
 export default function FloatNav() {
+  const { t } = useT();
+  const navLabels = [t.nav_home, t.nav_projects, t.nav_skills, t.nav_about, t.nav_contact];
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -150,6 +153,12 @@ export default function FloatNav() {
 
   useEffect(() => {
     activeRef.current = active;
+  }, [active]);
+
+  // Sync URL hash with the active section
+  useEffect(() => {
+    const href = navItems[active].href;
+    history.replaceState(null, "", active === 0 ? "/" : href);
   }, [active]);
 
   const scrollToIndex = useCallback((index: number) => {
@@ -235,7 +244,16 @@ export default function FloatNav() {
     return () => root.removeEventListener("wheel", onWheel);
   }, [scrollToIndex]);
 
-  const handleClick = (index: number) => {
+  // Restore section from URL hash on mount
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const index = navItems.findIndex((item) => item.href === hash);
+    if (index !== -1) scrollToIndex(index);
+  }, [scrollToIndex]);
+
+  const handleClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
     if (isAnimatingRef.current) return;
     scrollToIndex(index);
   };
@@ -332,12 +350,13 @@ export default function FloatNav() {
 
         {/* Icon & click layer */}
         {navItems.map((item, i) => (
-          <button
+          <a
             key={item.id}
-            onClick={() => handleClick(i)}
+            href={item.href}
+            onClick={(e) => handleClick(e, i)}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
-            aria-label={item.label}
+            aria-label={navLabels[i]}
             style={{
               position: "absolute",
               top: isMobile ? 0 : i * STRIDE,
@@ -355,10 +374,11 @@ export default function FloatNav() {
               transition: "color 0.25s ease",
               zIndex: 2,
               padding: 0,
+              textDecoration: "none",
             }}
           >
             {item.icon}
-          </button>
+          </a>
         ))}
 
         {/* Hover tooltips */}
@@ -393,7 +413,7 @@ export default function FloatNav() {
                 zIndex: 10,
               }}
             >
-              {navItems[hovered].label}
+              {navLabels[hovered]}
             </motion.div>
           )}
         </AnimatePresence>
