@@ -230,6 +230,31 @@ export default function FloatNav() {
       }
 
       const direction = event.deltaY > 0 ? 1 : -1;
+      const root = document.getElementById("snap-root");
+      if (!root) return;
+
+      const currentId = navItems[activeRef.current]?.id;
+      const currentSection = currentId
+        ? document.getElementById(currentId)
+        : null;
+
+      if (currentSection) {
+        const sectionHeight = currentSection.offsetHeight;
+        const viewportHeight = root.clientHeight;
+        const sectionOverflows = sectionHeight > viewportHeight + 4;
+
+        if (sectionOverflows) {
+          const sectionTop = currentSection.offsetTop;
+          const scrollTop = root.scrollTop;
+          const atBottom =
+            scrollTop + viewportHeight >= sectionTop + sectionHeight - 8;
+          const atTop = scrollTop <= sectionTop + 8;
+
+          if (direction > 0 && !atBottom) return;
+          if (direction < 0 && !atTop) return;
+        }
+      }
+
       const nextIndex = Math.max(
         0,
         Math.min(navItems.length - 1, activeRef.current + direction),

@@ -21,11 +21,45 @@ export const experienceTech = [
   "PostgreSQL",
 ];
 
+export const experience = [
+  {
+    role: "Full Stack Developer",
+    company: "Basic-Fit",
+    location: "Tilburg, Netherlands",
+    period: "May 2025 — Present",
+    description:
+      "Delivering production-ready features across multiple projects. Owning the full lifecycle — design, implementation, testing, deployment (Docker, Azure DevOps) and monitoring (New Relic). Integrating backend services with Redis and PostgreSQL.",
+    tech: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "NestJS",
+      "Docker",
+      "Azure DevOps",
+      "New Relic",
+      "Redis",
+      "PostgreSQL",
+    ],
+  },
+];
+
+export const education = [
+  {
+    degree: "Computer Science",
+    institution: "Codam Coding College",
+    network: "42 Network",
+    location: "Amsterdam, Netherlands",
+    period: "Oct 2022 — Apr 2025",
+    description:
+      "Self-directed, project-based programming school. Built a strong CS foundation covering data structures, algorithms, multi-threading, networking, and low-level C — reimplementing core stdlib functions from scratch.",
+  },
+];
 type Project = {
   title: string;
   tech: string[];
   github: string;
   demo?: string;
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -33,6 +67,7 @@ export const projects: Project[] = [
     title: "ft_transcendence",
     tech: ["TypeScript", "NestJS", "PostgreSQL", "Docker", "WebSockets"],
     github: "https://github.com/X3l1m/transcendence",
+    featured: true,
   },
   {
     title: "cub3d",

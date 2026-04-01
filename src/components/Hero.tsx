@@ -14,6 +14,7 @@ export default function Hero() {
       withContainer={false}
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
     >
+      {/* Gradient orb background */}
       <div className="pointer-events-none absolute -top-40 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-linear-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">

@@ -70,19 +70,24 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
             viewport={{ once: false, amount: 0.15 }}
-            className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.18)]"
+            className={`group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.18)]${project.featured ? " lg:col-span-2" : ""}`}
           >
             {/* Visual preview */}
-            <div className="h-36 w-full shrink-0 overflow-hidden">
+            <div className={`w-full shrink-0 overflow-hidden${project.featured ? " h-44 sm:h-52" : " h-36"}`}>
               <ProjectPreview title={project.title} />
             </div>
 
             {/* Card body */}
             <div className="flex flex-1 flex-col p-5">
               <div className="mb-3 flex items-start justify-between gap-2">
-                <h3 className="text-base font-semibold leading-tight">
-                  {project.title}
-                </h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-semibold leading-tight">{project.title}</h3>
+                  {project.featured && (
+                    <span className="rounded-full border border-accent-from/30 bg-accent-from/10 px-2 py-0.5 text-[10px] font-medium text-accent-from">
+                      featured
+                    </span>
+                  )}
+                </div>
                 <div className="flex shrink-0 items-center gap-1.5">
                   {project.demo && (
                     <a

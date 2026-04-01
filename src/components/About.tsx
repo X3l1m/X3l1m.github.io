@@ -6,19 +6,21 @@ import { useT } from "@/contexts/LanguageContext";
 import SectionHeading from "./SectionHeading";
 import Section from "./Section";
 
+type TimelineEntry = {
+  title: string;
+  subtitle: string;
+  period: string;
+  description: string;
+  index: number;
+};
+
 function TimelineEntry({
   title,
   subtitle,
   period,
   description,
   index,
-}: {
-  title: string;
-  subtitle: string;
-  period: string;
-  description: string;
-  index: number;
-}) {
+}: TimelineEntry) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 16 }}
