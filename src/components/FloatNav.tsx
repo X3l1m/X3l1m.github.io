@@ -331,7 +331,7 @@ export default function FloatNav() {
         <div
           style={{ position: "absolute", inset: 0, filter: "url(#liquid-goo)" }}
         >
-          {/* Inactive circles — subtle purple tint so bridge blends naturally */}
+          {/* Inactive circles — liquid glass */}
           {navItems.map((_, i) => (
             <div
               key={i}
@@ -342,10 +342,15 @@ export default function FloatNav() {
                 top: isMobile ? 0 : i * STRIDE,
                 left: isMobile ? i * STRIDE : 0,
                 borderRadius: "50%",
+                backdropFilter: "blur(12px) saturate(1.8)",
+                WebkitBackdropFilter: "blur(12px) saturate(1.8)",
                 background: [
-                  "radial-gradient(circle at 38% 32%, rgba(99,102,241,0.22) 0%, transparent 65%)",
-                  "linear-gradient(145deg, rgba(32,32,46,0.99) 0%, rgba(18,18,28,0.99) 100%)",
+                  "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.10) 0%, transparent 55%)",
+                  "radial-gradient(circle at 70% 75%, rgba(99,102,241,0.12) 0%, transparent 60%)",
+                  "rgba(255,255,255,0.04)",
                 ].join(", "),
+                border: "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.2)",
               }}
             />
           ))}
@@ -423,11 +428,12 @@ export default function FloatNav() {
                 transform: isMobile
                   ? "translate(-50%, -100%)"
                   : "translateY(-50%)",
-                background: "rgba(12, 12, 18, 0.92)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(63, 63, 70, 0.45)",
+                background: "rgba(12, 12, 18, 0.65)",
+                backdropFilter: "blur(16px) saturate(1.8)",
+                WebkitBackdropFilter: "blur(16px) saturate(1.8)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
                 borderRadius: 8,
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04)",
                 padding: "5px 12px",
                 fontSize: 12,
                 fontWeight: 500,

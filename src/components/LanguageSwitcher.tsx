@@ -100,10 +100,10 @@ export default function LanguageSwitcher() {
           gap: 6,
           padding: "6px 12px",
           borderRadius: 999,
-          border: "1px solid rgba(63,63,70,0.7)",
-          background: "rgba(12,12,18,0.92)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(12,12,18,0.6)",
+          backdropFilter: "blur(16px) saturate(1.8)",
+          WebkitBackdropFilter: "blur(16px) saturate(1.8)",
           color: "#a1a1aa",
           fontSize: 11,
           fontWeight: 600,
@@ -120,7 +120,7 @@ export default function LanguageSwitcher() {
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "#a1a1aa";
           (e.currentTarget as HTMLButtonElement).style.borderColor =
-            "rgba(63,63,70,0.7)";
+            "rgba(255,255,255,0.08)";
         }}
       >
         {isTranslating ? <Spinner /> : <GlobeIcon />}
@@ -141,10 +141,10 @@ export default function LanguageSwitcher() {
               left: 0,
               width: 220,
               borderRadius: 12,
-              border: "1px solid rgba(63,63,70,0.6)",
-              background: "rgba(12,12,18,0.97)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              background: "rgba(12,12,18,0.65)",
+              backdropFilter: "blur(16px) saturate(1.8)",
+              WebkitBackdropFilter: "blur(16px) saturate(1.8)",
               boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
               overflow: "hidden",
             }}

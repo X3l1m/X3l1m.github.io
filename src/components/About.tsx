@@ -40,7 +40,7 @@ function TimelineEntry({
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted">
+    <span className="glass-subtle inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs text-muted">
       {children}
     </span>
   );
@@ -131,7 +131,7 @@ export default function About() {
                 {experienceTech.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
+                    className="glass-subtle rounded-full px-2.5 py-0.5 text-xs text-muted"
                   >
                     {tech}
                   </span>

@@ -160,7 +160,7 @@ export default function Skills() {
     <Section id="skills">
       <SectionHeading>{t.section_skills}</SectionHeading>
 
-      <div className="grid gap-8 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         {skillCategories.map((category, catIndex) => (
           <motion.div
             key={category.name}
@@ -168,6 +168,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: catIndex * 0.1 }}
             viewport={{ once: false, amount: 0.2 }}
+            className="glass rounded-xl p-6"
           >
             <h3 className="mb-4 text-sm font-medium tracking-widest text-muted uppercase">
               {t[CAT_KEY[category.name]] ?? category.name}
@@ -183,7 +184,7 @@ export default function Skills() {
                     delay: catIndex * 0.1 + skillIndex * 0.05,
                   }}
                   viewport={{ once: false, amount: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm transition-colors hover:border-accent-from/40 hover:text-foreground"
+                  className="glass-subtle inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-300 hover:border-white/15 hover:text-foreground"
                 >
                   {skillIcons[skill] && (
                     <span className="inline-flex shrink-0 items-center">

@@ -15,7 +15,8 @@ export default function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
     >
       {/* Gradient orb background */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-linear-to-br from-accent-from/20 to-accent-to/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-linear-to-br from-accent-from/25 to-accent-to/25 blur-[120px]" />
+      <div className="pointer-events-none absolute top-1/3 -right-20 h-75 w-75 rounded-full bg-purple-500/10 blur-[100px]" />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <motion.p
@@ -56,13 +57,13 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="rounded-full bg-linear-to-r from-accent-from to-accent-to px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="rounded-full bg-linear-to-r from-accent-from to-accent-to px-6 py-3 text-sm font-medium text-white shadow-[0_4px_24px_rgba(99,102,241,0.4)] transition-all hover:shadow-[0_4px_32px_rgba(99,102,241,0.55)] hover:brightness-110"
           >
             {t.hero_cta_projects}
           </a>
           <a
             href="#contact"
-            className="rounded-full border border-border px-6 py-3 text-sm font-medium text-muted transition-colors hover:border-foreground hover:text-foreground"
+            className="glass rounded-full px-6 py-3 text-sm font-medium text-muted transition-all duration-300 hover:text-foreground hover:border-white/20"
           >
             {t.hero_cta_contact}
           </a>

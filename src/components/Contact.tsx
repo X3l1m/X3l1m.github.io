@@ -21,7 +21,7 @@ export default function Contact() {
         {/* Availability badge */}
         <motion.div
           {...fadeUp(0)}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted"
+          className="glass-subtle mb-8 inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-sm text-muted"
         >
           <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.55)]" />
           {t.contact_availability}
@@ -45,7 +45,7 @@ export default function Contact() {
         <motion.a
           {...fadeUp(0.15)}
           href={`mailto:${personalInfo.email}`}
-          className="group mb-12 flex w-full max-w-xl items-center justify-between rounded-2xl border border-border bg-card px-7 py-5 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+          className="glass group mb-12 flex w-full max-w-xl items-center justify-between rounded-2xl px-7 py-5 transition-all duration-300 hover:border-accent-from/40"
         >
           <div className="flex items-center gap-4">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">
@@ -97,7 +97,7 @@ export default function Contact() {
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-2xl border border-border bg-card px-6 py-4 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+            className="glass group flex items-center justify-between rounded-2xl px-6 py-4 transition-all duration-300 hover:border-accent-from/40"
           >
             <div className="flex items-center gap-3">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">
@@ -137,7 +137,7 @@ export default function Contact() {
             href={personalInfo.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-2xl border border-border bg-card px-6 py-4 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+            className="glass group flex items-center justify-between rounded-2xl px-6 py-4 transition-all duration-300 hover:border-accent-from/40"
           >
             <div className="flex items-center gap-3">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">

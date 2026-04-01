@@ -70,7 +70,7 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
             viewport={{ once: false, amount: 0.15 }}
-            className={`group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent-from/40 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.18)]${project.featured ? " lg:col-span-2" : ""}`}
+            className={`glass group flex flex-col rounded-xl overflow-hidden transition-all duration-300 hover:border-white/15${project.featured ? " lg:col-span-2" : ""}`}
           >
             {/* Visual preview */}
             <div className={`w-full shrink-0 overflow-hidden${project.featured ? " h-44 sm:h-52" : " h-36"}`}>
@@ -120,7 +120,7 @@ export default function Projects() {
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
+                    className="glass-subtle rounded-full px-2.5 py-0.5 text-xs text-muted"
                   >
                     {tech}
                   </span>
