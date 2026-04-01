@@ -1,3 +1,5 @@
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import FloatNav from "@/components/FloatNav";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
@@ -8,12 +10,10 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
+    <LanguageProvider>
+      <LanguageSwitcher />
       <FloatNav />
-      <main
-        id="snap-root"
-        className="h-screen overflow-y-auto"
-      >
+      <main id="snap-root" className="h-screen overflow-y-auto">
         <Hero />
         <Projects />
         <Skills />
@@ -21,6 +21,6 @@ export default function Home() {
         <Contact />
         <Footer />
       </main>
-    </>
+    </LanguageProvider>
   );
 }

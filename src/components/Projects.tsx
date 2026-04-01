@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data";
+import { useT } from "@/contexts/LanguageContext";
+import type { Strings } from "@/lib/strings";
 import SectionHeading from "./SectionHeading";
 import Section from "./Section";
 import ProjectPreview from "./ProjectPreview";
@@ -44,10 +46,21 @@ function ExternalIcon() {
   );
 }
 
+// Map project title → strings.ts key
+const PROJ_DESC_KEY: Record<string, keyof Strings> = {
+  ft_transcendence: "proj_ft_transcendence",
+  cub3d: "proj_cub3d",
+  minishell: "proj_minishell",
+  webserv: "proj_webserv",
+  so_long: "proj_so_long",
+};
+
 export default function Projects() {
+  const { t } = useT();
+
   return (
     <Section id="projects">
-      <SectionHeading>Projects</SectionHeading>
+      <SectionHeading>{t.section_projects}</SectionHeading>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
@@ -100,16 +113,16 @@ export default function Projects() {
               </div>
 
               <p className="mb-4 flex-1 text-sm leading-relaxed text-muted">
-                {project.description}
+                {t[PROJ_DESC_KEY[project.title]] ?? ""}
               </p>
 
               <div className="flex flex-wrap gap-1.5">
-                {project.tech.map((t) => (
+                {project.tech.map((tech) => (
                   <span
-                    key={t}
+                    key={tech}
                     className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
                   >
-                    {t}
+                    {tech}
                   </span>
                 ))}
               </div>

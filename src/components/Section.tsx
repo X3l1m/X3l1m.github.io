@@ -9,6 +9,7 @@ type SectionProps = {
   fullHeight?: boolean;
   centered?: boolean;
   withDefaultSpacing?: boolean;
+  snap?: boolean;
 };
 
 function cx(...classes: Array<string | undefined>) {
@@ -24,11 +25,13 @@ export default function Section({
   fullHeight = true,
   centered = true,
   withDefaultSpacing = true,
+  snap = true,
 }: SectionProps) {
   const sectionClassName = cx(
     withDefaultSpacing ? "px-6 py-24" : undefined,
     fullHeight ? "min-h-screen" : undefined,
     centered ? "flex items-center" : undefined,
+    snap ? "snap-start snap-always" : undefined,
     className,
   );
 

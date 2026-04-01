@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
-import SectionHeading from "./SectionHeading";
+import { useT } from "@/contexts/LanguageContext";
 import Section from "./Section";
 
 const fadeUp = (delay = 0) => ({
@@ -13,20 +13,37 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Contact() {
+  const { t } = useT();
+
   return (
     <Section id="contact">
       <div className="flex flex-col items-center text-center">
-        <SectionHeading>Get in Touch</SectionHeading>
+        {/* Availability badge */}
+        <motion.div
+          {...fadeUp(0)}
+          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted"
+        >
+          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.55)]" />
+          {t.contact_availability}
+        </motion.div>
 
-        <motion.p {...fadeUp(0.05)} className="mb-14 max-w-lg text-muted">
-          Open to new opportunities and interesting projects. Whether you want
-          to collaborate, have a question, or just want to say hi — my inbox is
-          always open.
+        {/* Headline */}
+        <motion.h2
+          {...fadeUp(0.05)}
+          className="mb-5 text-4xl font-bold tracking-tight sm:text-5xl"
+        >
+          <span className="bg-linear-to-r from-accent-from to-accent-to bg-clip-text text-transparent">
+            {t.contact_headline}
+          </span>
+        </motion.h2>
+
+        <motion.p {...fadeUp(0.1)} className="mb-14 max-w-lg text-base leading-relaxed text-muted">
+          {t.contact_subtext}
         </motion.p>
 
         {/* Email CTA */}
         <motion.a
-          {...fadeUp(0.1)}
+          {...fadeUp(0.15)}
           href={`mailto:${personalInfo.email}`}
           className="group mb-12 flex w-full max-w-xl items-center justify-between rounded-2xl border border-border bg-card px-7 py-5 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
         >
@@ -73,7 +90,7 @@ export default function Contact() {
 
         {/* Social links */}
         <motion.div
-          {...fadeUp(0.15)}
+          {...fadeUp(0.2)}
           className="mb-14 grid w-full max-w-xl grid-cols-2 gap-4"
         >
           <a
@@ -161,7 +178,7 @@ export default function Contact() {
 
         {/* Meta info */}
         <motion.div
-          {...fadeUp(0.2)}
+          {...fadeUp(0.25)}
           className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
         >
           <span className="h-1 w-1 rounded-full bg-border" />
@@ -170,7 +187,7 @@ export default function Contact() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
-            Available for new opportunities
+            {t.contact_availability}
           </span>
         </motion.div>
       </div>

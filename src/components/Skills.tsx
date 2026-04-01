@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion";
 import { skillCategories } from "@/lib/data";
+import { useT } from "@/contexts/LanguageContext";
+import type { Strings } from "@/lib/strings";
 import SectionHeading from "./SectionHeading";
 import Section from "./Section";
+
+// Map data.ts category name → strings.ts key
+const CAT_KEY: Record<string, keyof Strings> = {
+  Frontend: "skillcat_Frontend",
+  Backend: "skillcat_Backend",
+  Systems: "skillcat_Systems",
+  "DevOps & Tools": "skillcat_DevOps & Tools",
+};
 
 const skillIcons: Record<string, React.ReactNode> = {
   TypeScript: (
@@ -144,9 +154,11 @@ const skillIcons: Record<string, React.ReactNode> = {
 };
 
 export default function Skills() {
+  const { t } = useT();
+
   return (
     <Section id="skills">
-      <SectionHeading>Skills & Tech Stack</SectionHeading>
+      <SectionHeading>{t.section_skills}</SectionHeading>
 
       <div className="grid gap-8 sm:grid-cols-2">
         {skillCategories.map((category, catIndex) => (
@@ -158,7 +170,7 @@ export default function Skills() {
             viewport={{ once: false, amount: 0.2 }}
           >
             <h3 className="mb-4 text-sm font-medium tracking-widest text-muted uppercase">
-              {category.name}
+              {t[CAT_KEY[category.name]] ?? category.name}
             </h3>
             <div className="flex flex-wrap gap-2">
               {category.skills.map((skill, skillIndex) => (
@@ -174,7 +186,9 @@ export default function Skills() {
                   className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm transition-colors hover:border-accent-from/40 hover:text-foreground"
                 >
                   {skillIcons[skill] && (
-                    <span className="inline-flex shrink-0 items-center">{skillIcons[skill]}</span>
+                    <span className="inline-flex shrink-0 items-center">
+                      {skillIcons[skill]}
+                    </span>
                   )}
                   {skill}
                 </motion.span>
