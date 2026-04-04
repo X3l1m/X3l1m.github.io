@@ -37,7 +37,10 @@ export default function Contact() {
           </span>
         </motion.h2>
 
-        <motion.p {...fadeUp(0.1)} className="mb-14 max-w-lg text-base leading-relaxed text-muted">
+        <motion.p
+          {...fadeUp(0.1)}
+          className="mb-14 max-w-lg text-base leading-relaxed text-muted"
+        >
           {t.contact_subtext}
         </motion.p>
 
@@ -174,21 +177,6 @@ export default function Contact() {
               <path d="m12 5 7 7-7 7" />
             </svg>
           </a>
-        </motion.div>
-
-        {/* Meta info */}
-        <motion.div
-          {...fadeUp(0.25)}
-          className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
-        >
-          <span className="h-1 w-1 rounded-full bg-border" />
-          <span className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            {t.contact_availability}
-          </span>
         </motion.div>
       </div>
     </Section>
