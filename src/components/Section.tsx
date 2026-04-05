@@ -28,7 +28,7 @@ export default function Section({
   snap = true,
 }: SectionProps) {
   const sectionClassName = cx(
-    withDefaultSpacing ? "px-6 py-24" : undefined,
+    withDefaultSpacing ? "px-6 py-28 sm:px-8" : undefined,
     fullHeight ? "min-h-screen" : undefined,
     centered ? "flex items-center" : undefined,
     snap ? "snap-start snap-always" : undefined,

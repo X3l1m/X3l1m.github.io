@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /e/code/X3l1m.github.io/*.json /e/code/X3l1m.github.io/*.ts)"
+    ]
+  }
+}

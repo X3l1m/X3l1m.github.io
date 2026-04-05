@@ -17,11 +17,16 @@ export default function Contact() {
 
   return (
     <Section id="contact">
-      <div className="flex flex-col items-center text-center">
+      <div className="relative flex flex-col items-center text-center">
+        {/* Ambient orb */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-96 w-96 rounded-full bg-accent-from/5 blur-[120px]" />
+        </div>
+
         {/* Availability badge */}
         <motion.div
           {...fadeUp(0)}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted"
+          className="relative mb-8 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-4 py-2 text-sm text-emerald-400"
         >
           <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.55)]" />
           {t.contact_availability}
@@ -30,16 +35,18 @@ export default function Contact() {
         {/* Headline */}
         <motion.h2
           {...fadeUp(0.05)}
-          className="mb-5 text-4xl font-bold tracking-tight sm:text-5xl"
+          className="relative mb-5 text-4xl font-bold tracking-tight sm:text-5xl"
         >
-          <span className="bg-linear-to-r from-accent-from to-accent-to bg-clip-text text-transparent">
-            {t.contact_headline}
+          {t.contact_headline.split(" ").slice(0, -1).join(" ")}{" "}
+          <span className="relative inline-block">
+            {t.contact_headline.split(" ").slice(-1)[0]}
+            <span className="absolute -bottom-1 left-0 right-0 h-px bg-linear-to-r from-accent-from to-transparent" />
           </span>
         </motion.h2>
 
         <motion.p
           {...fadeUp(0.1)}
-          className="mb-14 max-w-lg text-base leading-relaxed text-muted"
+          className="relative mb-14 max-w-lg text-base leading-relaxed text-muted"
         >
           {t.contact_subtext}
         </motion.p>
@@ -48,8 +55,10 @@ export default function Contact() {
         <motion.a
           {...fadeUp(0.15)}
           href={`mailto:${personalInfo.email}`}
-          className="group mb-12 flex w-full max-w-xl items-center justify-between rounded-2xl border border-border bg-card px-7 py-5 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+          className="group relative mb-12 flex w-full max-w-xl items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-card px-7 py-6 transition-all duration-500 hover:border-accent-from/40 hover:shadow-[0_0_60px_-20px_rgba(34,211,238,0.3)]"
         >
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-linear-to-r from-accent-from/0 via-accent-from/3 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
           <div className="flex items-center gap-4">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">
               <svg
@@ -84,7 +93,7 @@ export default function Contact() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent-from"
+            className="text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent-from"
           >
             <path d="M5 12h14" />
             <path d="m12 5 7 7-7 7" />
@@ -94,16 +103,16 @@ export default function Contact() {
         {/* Social links */}
         <motion.div
           {...fadeUp(0.2)}
-          className="mb-14 grid w-full max-w-xl grid-cols-2 gap-4"
+          className="relative mb-14 grid w-full max-w-xl grid-cols-2 gap-4"
         >
           <a
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-2xl border border-border bg-card px-6 py-4 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+            className="group flex items-center justify-between rounded-2xl border border-border/60 bg-card px-6 py-4 transition-all duration-300 hover:border-foreground/20 hover:bg-card-hover"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/8 text-foreground transition-colors group-hover:bg-foreground/12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -129,7 +138,7 @@ export default function Contact() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent-from"
+              className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-foreground"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -140,10 +149,10 @@ export default function Contact() {
             href={personalInfo.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-2xl border border-border bg-card px-6 py-4 transition-all duration-300 hover:border-accent-from/50 hover:bg-card/80"
+            className="group flex items-center justify-between rounded-2xl border border-border/60 bg-card px-6 py-4 transition-all duration-300 hover:border-[#0a66c2]/40 hover:bg-card-hover"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-from/10 text-accent-from transition-colors group-hover:bg-accent-from/20">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0a66c2]/10 text-[#0a66c2] transition-colors group-hover:bg-[#0a66c2]/20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -171,7 +180,7 @@ export default function Contact() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent-from"
+              className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#0a66c2]"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />

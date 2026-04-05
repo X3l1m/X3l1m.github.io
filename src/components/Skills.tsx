@@ -153,37 +153,50 @@ const skillIcons: Record<string, React.ReactNode> = {
   ),
 };
 
+const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0);
+
 export default function Skills() {
   const { t } = useT();
 
   return (
     <Section id="skills">
-      <SectionHeading>{t.section_skills}</SectionHeading>
+      <SectionHeading>
+        <span>{t.section_skills}</span>
+        <span className="ml-2 rounded-full border border-accent-from/20 bg-accent-from/10 px-2 py-0.5 font-mono text-xs text-accent-from">
+          {totalSkills}
+        </span>
+      </SectionHeading>
 
-      <div className="grid gap-8 sm:grid-cols-2">
+      <div className="space-y-10">
         {skillCategories.map((category, catIndex) => (
           <motion.div
             key={category.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: catIndex * 0.1 }}
+            transition={{ duration: 0.4, delay: catIndex * 0.08 }}
             viewport={{ once: false, amount: 0.2 }}
           >
-            <h3 className="mb-4 text-sm font-medium tracking-widest text-muted uppercase">
-              {t[CAT_KEY[category.name]] ?? category.name}
-            </h3>
+            {/* Category header */}
+            <div className="mb-5 flex items-center gap-3">
+              <div className="h-px w-8 rounded-full bg-linear-to-r from-accent-from/60 to-transparent" />
+              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-accent-from/70">
+                {t[CAT_KEY[category.name]] ?? category.name}
+              </h3>
+            </div>
+
+            {/* Skill pills */}
             <div className="flex flex-wrap gap-2">
               {category.skills.map((skill, skillIndex) => (
                 <motion.span
                   key={skill}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.92 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{
-                    duration: 0.3,
-                    delay: catIndex * 0.1 + skillIndex * 0.05,
+                    duration: 0.25,
+                    delay: catIndex * 0.08 + skillIndex * 0.04,
                   }}
                   viewport={{ once: false, amount: 0.2 }}
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm transition-colors hover:border-accent-from/40 hover:text-foreground"
+                  className="inline-flex items-center gap-2.5 rounded-xl border border-border/80 bg-card px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent-from/40 hover:bg-accent-from/5 hover:text-accent-from hover:shadow-[0_0_16px_-4px_rgba(34,211,238,0.2)]"
                 >
                   {skillIcons[skill] && (
                     <span className="inline-flex shrink-0 items-center">

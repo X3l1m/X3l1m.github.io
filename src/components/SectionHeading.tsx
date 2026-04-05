@@ -12,7 +12,7 @@ export default function SectionHeading({ children }: { children: React.ReactNode
       className="mb-14"
     >
       <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{children}</h2>
-      <div className="mt-3 h-px w-12 bg-linear-to-r from-accent-from to-accent-to rounded-full" />
+      <div className="mt-3 h-px w-16 bg-linear-to-r from-accent-from to-accent-to rounded-full" />
     </motion.div>
   );
 }

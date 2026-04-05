@@ -343,8 +343,8 @@ export default function FloatNav() {
                 left: isMobile ? i * STRIDE : 0,
                 borderRadius: "50%",
                 background: [
-                  "radial-gradient(circle at 38% 32%, rgba(99,102,241,0.22) 0%, transparent 65%)",
-                  "linear-gradient(145deg, rgba(32,32,46,0.99) 0%, rgba(18,18,28,0.99) 100%)",
+                  "radial-gradient(circle at 38% 32%, rgba(34,211,238,0.15) 0%, transparent 65%)",
+                  "linear-gradient(145deg, rgba(10,20,38,0.99) 0%, rgba(6,11,20,0.99) 100%)",
                 ].join(", "),
               }}
             />
@@ -360,9 +360,9 @@ export default function FloatNav() {
               left: 0,
               borderRadius: "50%",
               background: [
-                "radial-gradient(circle at 32% 26%, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.0) 48%)",
-                "radial-gradient(circle at 72% 76%, rgba(79,30,180,0.55) 0%, rgba(79,30,180,0.0) 52%)",
-                "linear-gradient(145deg, #a5b4fc 0%, #6366f1 30%, #8b5cf6 65%, #6d28d9 100%)",
+                "radial-gradient(circle at 32% 26%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.0) 48%)",
+                "radial-gradient(circle at 72% 76%, rgba(8,100,130,0.5) 0%, rgba(8,100,130,0.0) 52%)",
+                "linear-gradient(145deg, #67e8f9 0%, #22d3ee 30%, #06b6d4 65%, #0891b2 100%)",
               ].join(", "),
               x: isMobile ? blobProgress : 0,
               y: isMobile ? 0 : blobProgress,
@@ -423,10 +423,10 @@ export default function FloatNav() {
                 transform: isMobile
                   ? "translate(-50%, -100%)"
                   : "translateY(-50%)",
-                background: "rgba(12, 12, 18, 0.92)",
+                background: "rgba(6, 11, 20, 0.92)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(63, 63, 70, 0.45)",
+                border: "1px solid rgba(30, 41, 59, 0.6)",
                 borderRadius: 8,
                 padding: "5px 12px",
                 fontSize: 12,
