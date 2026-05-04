@@ -34,9 +34,6 @@ export const SOURCE_STRINGS = {
     "I build things that work and last. As a Full Stack Developer at Basic-Fit I own features end-to-end — from architecture to deployment to monitoring. Three years at Codam (42 Network) taught me to go deep: reimplementing C stdlib, building game engines, writing HTTP servers from scratch. I believe low-level understanding makes high-level code better.",
   about_exp_label: "Experience",
   about_edu_label: "Education",
-  about_highlight_stack: "Full-stack",
-  about_highlight_years: "3+ years coding",
-
   // About — experience entry
   about_exp_role: "Full Stack Developer",
   about_exp_company: "Basic-Fit",
@@ -64,7 +61,6 @@ export const SOURCE_STRINGS = {
     "2D tile-based game with sprite rendering, map parsing, and player movement using a minimal graphics library.",
 
   // Contact
-  contact_availability: "Available for new opportunities",
   contact_headline: "Let's Work Together",
   contact_subtext:
     "Open to new opportunities, freelance projects, and interesting collaborations. Let's build something great.",

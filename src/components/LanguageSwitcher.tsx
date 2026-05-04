@@ -6,16 +6,7 @@ import { useT } from "@/contexts/LanguageContext";
 
 function GlobeIcon() {
   return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <line x1="2" y1="12" x2="22" y2="12" />
       <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -25,16 +16,7 @@ function GlobeIcon() {
 
 function Spinner() {
   return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      className="animate-spin"
-    >
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
   );
@@ -61,11 +43,10 @@ export default function LanguageSwitcher() {
     ? sorted.filter(
         (l) =>
           l.name.toLowerCase().includes(search.toLowerCase()) ||
-          l.code.toLowerCase().includes(search.toLowerCase())
+          l.code.toLowerCase().includes(search.toLowerCase()),
       )
     : sorted;
 
-  // Close on outside click
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -77,85 +58,72 @@ export default function LanguageSwitcher() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Focus search when dropdown opens
   useEffect(() => {
     if (open) setTimeout(() => searchRef.current?.focus(), 50);
   }, [open]);
 
   return (
-    <div
-      ref={ref}
-      style={{ position: "fixed", top: 16, left: 16, zIndex: 80 }}
-    >
+    <div ref={ref} style={{ position: "fixed", top: 16, left: 16, zIndex: 80 }}>
       {/* Trigger */}
-      <button
-        onClick={() => {
-          setOpen((o) => !o);
-          setSearch("");
-        }}
+      <motion.button
+        onClick={() => { setOpen((o) => !o); setSearch(""); }}
         aria-label="Change language"
+        whileTap={{ scale: 0.94 }}
         style={{
           display: "flex",
           alignItems: "center",
           gap: 6,
-          padding: "6px 12px",
+          padding: "7px 13px",
           borderRadius: 999,
-          border: "1px solid rgba(63,63,70,0.7)",
-          background: "rgba(12,12,18,0.92)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          color: "#a1a1aa",
+          border: "1px solid var(--nav-border)",
+          background: "var(--nav-bg)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          color: "var(--muted)",
           fontSize: 11,
           fontWeight: 600,
           letterSpacing: "0.05em",
           cursor: "pointer",
+          boxShadow: "var(--shadow-sm)",
           transition: "color 0.2s, border-color 0.2s",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.color = "#e4e4e7";
-          (e.currentTarget as HTMLButtonElement).style.borderColor =
-            "rgba(99,102,241,0.4)";
+          (e.currentTarget as HTMLButtonElement).style.color = "var(--foreground)";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent-from)";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.color = "#a1a1aa";
-          (e.currentTarget as HTMLButtonElement).style.borderColor =
-            "rgba(63,63,70,0.7)";
+          (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--nav-border)";
         }}
       >
         {isTranslating ? <Spinner /> : <GlobeIcon />}
         <span>{displayCode}</span>
-      </button>
+      </motion.button>
 
       {/* Dropdown */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={{
               position: "absolute",
               top: "calc(100% + 8px)",
               left: 0,
               width: 220,
-              borderRadius: 12,
-              border: "1px solid rgba(63,63,70,0.6)",
-              background: "rgba(12,12,18,0.97)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+              borderRadius: 14,
+              border: "1px solid var(--nav-border)",
+              background: "var(--nav-bg)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "var(--shadow-lg)",
               overflow: "hidden",
             }}
           >
             {/* Search */}
-            <div
-              style={{
-                padding: "8px 10px",
-                borderBottom: "1px solid rgba(63,63,70,0.5)",
-              }}
-            >
+            <div style={{ padding: "8px 10px", borderBottom: "1px solid var(--border)" }}>
               <input
                 ref={searchRef}
                 value={search}
@@ -163,12 +131,12 @@ export default function LanguageSwitcher() {
                 placeholder="Search languages…"
                 style={{
                   width: "100%",
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(63,63,70,0.5)",
-                  borderRadius: 6,
-                  padding: "5px 9px",
+                  background: "var(--surface)",
+                  border: "1px solid var(--border-2)",
+                  borderRadius: 8,
+                  padding: "5px 10px",
                   fontSize: 12,
-                  color: "#e4e4e7",
+                  color: "var(--foreground)",
                   outline: "none",
                 }}
               />
@@ -177,87 +145,50 @@ export default function LanguageSwitcher() {
             {/* List */}
             <div style={{ maxHeight: 220, overflowY: "auto" }}>
               {langsLoading ? (
-                <div
-                  style={{
-                    padding: "16px",
-                    textAlign: "center",
-                    color: "#52525b",
-                    fontSize: 12,
-                  }}
-                >
+                <div style={{ padding: "16px", textAlign: "center", color: "var(--muted-2)", fontSize: 12 }}>
                   Loading…
                 </div>
               ) : filtered.length === 0 ? (
-                <div
-                  style={{
-                    padding: "16px",
-                    textAlign: "center",
-                    color: "#52525b",
-                    fontSize: 12,
-                  }}
-                >
+                <div style={{ padding: "16px", textAlign: "center", color: "var(--muted-2)", fontSize: 12 }}>
                   No results
                 </div>
               ) : (
                 filtered.map((l, idx) => (
                   <div key={l.code}>
                     {!search && idx === PINNED.length && (
-                      <div
-                        style={{
-                          margin: "4px 10px",
-                          borderTop: "1px solid rgba(63,63,70,0.5)",
-                        }}
-                      />
+                      <div style={{ margin: "4px 10px", borderTop: "1px solid var(--border)" }} />
                     )}
                     <button
-                      onClick={() => {
-                        setLang(l.code);
-                        setOpen(false);
-                        setSearch("");
-                      }}
+                      onClick={() => { setLang(l.code); setOpen(false); setSearch(""); }}
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
                         width: "100%",
                         padding: "7px 12px",
-                        background:
-                          l.code === lang
-                            ? "rgba(99,102,241,0.12)"
-                            : "transparent",
+                        background: l.code === lang ? "var(--glow-from)" : "transparent",
                         border: "none",
                         cursor: "pointer",
-                        color: l.code === lang ? "#a5b4fc" : "#a1a1aa",
+                        color: l.code === lang ? "var(--accent-from)" : "var(--muted)",
                         fontSize: 12,
                         textAlign: "left",
                         transition: "background 0.15s, color 0.15s",
                       }}
                       onMouseEnter={(e) => {
                         if (l.code !== lang) {
-                          (e.currentTarget as HTMLButtonElement).style.background =
-                            "rgba(255,255,255,0.04)";
-                          (e.currentTarget as HTMLButtonElement).style.color =
-                            "#e4e4e7";
+                          (e.currentTarget as HTMLButtonElement).style.background = "var(--surface)";
+                          (e.currentTarget as HTMLButtonElement).style.color = "var(--foreground)";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (l.code !== lang) {
-                          (e.currentTarget as HTMLButtonElement).style.background =
-                            "transparent";
-                          (e.currentTarget as HTMLButtonElement).style.color =
-                            "#a1a1aa";
+                          (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                          (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)";
                         }
                       }}
                     >
                       <span>{l.name}</span>
-                      <span
-                        style={{
-                          fontSize: 10,
-                          color: l.code === lang ? "#6366f1" : "#3f3f46",
-                          fontFamily: "monospace",
-                          letterSpacing: "0.04em",
-                        }}
-                      >
+                      <span style={{ fontSize: 10, color: l.code === lang ? "var(--accent-from)" : "var(--muted-2)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
                         {l.code.toUpperCase()}
                       </span>
                     </button>
