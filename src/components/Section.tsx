@@ -4,43 +4,18 @@ type SectionProps = {
   id: string;
   children: ReactNode;
   className?: string;
-  contentClassName?: string;
-  withContainer?: boolean;
-  fullHeight?: boolean;
-  centered?: boolean;
-  withDefaultSpacing?: boolean;
-  snap?: boolean;
+  contained?: boolean;
 };
 
-function cx(...classes: Array<string | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Section({
-  id,
-  children,
-  className,
-  contentClassName,
-  withContainer = true,
-  fullHeight = true,
-  centered = true,
-  withDefaultSpacing = true,
-  snap = true,
-}: SectionProps) {
-  const sectionClassName = cx(
-    withDefaultSpacing ? "px-6 py-24" : undefined,
-    fullHeight ? "min-h-screen" : undefined,
-    centered ? "flex items-center" : undefined,
-    snap ? "snap-start snap-always" : undefined,
-    className,
-  );
-
+export default function Section({ id, children, className = "", contained = true }: SectionProps) {
   return (
-    <section id={id} className={sectionClassName}>
-      {withContainer ? (
-        <div className={cx("mx-auto w-full max-w-5xl", contentClassName)}>
-          {children}
-        </div>
+    <section
+      id={id}
+      className={`relative py-32 md:py-40 px-6 ${className}`}
+      style={{ scrollMarginTop: 96 }}
+    >
+      {contained ? (
+        <div className="mx-auto w-full max-w-6xl">{children}</div>
       ) : (
         children
       )}

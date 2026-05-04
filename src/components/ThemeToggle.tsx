@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import GlassPanel from "./GlassPanel";
 
 export default function ThemeToggle() {
   const { theme, toggle } = useTheme();
@@ -10,7 +11,6 @@ export default function ThemeToggle() {
   const clicking = useRef(false);
   const isDark = visualTheme === "dark";
 
-  // Keep in sync when theme changes externally (initial load from localStorage)
   useEffect(() => {
     if (!clicking.current) setVisualTheme(theme);
   }, [theme]);
@@ -19,59 +19,51 @@ export default function ThemeToggle() {
     clicking.current = true;
     setVisualTheme((v) => (v === "dark" ? "light" : "dark"));
     toggle();
-    // Reset flag after transition
-    setTimeout(() => {
-      clicking.current = false;
-    }, 800);
+    setTimeout(() => { clicking.current = false; }, 900);
   };
 
   return (
-    <motion.button
+    <GlassPanel
+      as={motion.button}
+      radius="full"
       onClick={handleClick}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      whileTap={{ scale: 0.88 }}
+      whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
       style={{
         position: "fixed",
         bottom: 24,
         right: 24,
-        zIndex: 10000,
-        width: 48,
-        height: 48,
-        borderRadius: "50%",
-        border: "1px solid var(--nav-border)",
-        background: "var(--nav-bg)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        boxShadow: isDark
-          ? "0 0 24px rgba(129,140,248,0.18), 0 4px 16px rgba(0,0,0,0.4)"
-          : "0 0 24px rgba(251,191,36,0.18), 0 4px 16px rgba(0,0,0,0.12)",
+        zIndex: 70,
+        width: 52,
+        height: 52,
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden",
       }}
     >
       <AnimatePresence initial={false}>
         {isDark ? (
           <motion.span
             key="moon"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
+            initial={{ y: 24, opacity: 0, rotate: -45 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: -24, opacity: 0, rotate: 45 }}
             transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
             style={{ position: "absolute", display: "flex" }}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-from)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc-1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </motion.span>
         ) : (
           <motion.span
             key="sun"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
+            initial={{ y: 24, opacity: 0, rotate: -45 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: -24, opacity: 0, rotate: 45 }}
             transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
             style={{ position: "absolute", display: "flex" }}
           >
@@ -89,6 +81,6 @@ export default function ThemeToggle() {
           </motion.span>
         )}
       </AnimatePresence>
-    </motion.button>
+    </GlassPanel>
   );
 }

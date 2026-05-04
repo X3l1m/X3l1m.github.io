@@ -2,56 +2,66 @@
 
 import { motion } from "framer-motion";
 import { useT } from "@/contexts/LanguageContext";
-import SectionHeading from "./SectionHeading";
 import Section from "./Section";
+import SectionHeading from "./SectionHeading";
 
-type TimelineEntryProps = {
+function TimelineDot() {
+  return (
+    <span className="relative flex shrink-0 items-center justify-center">
+      <span
+        className="absolute inset-0 -m-1.5 rounded-full"
+        style={{ background: "var(--acc-soft)" }}
+      />
+      <span
+        className="relative inline-block h-2.5 w-2.5 rounded-full"
+        style={{
+          background: "linear-gradient(135deg, var(--acc-1), var(--acc-2))",
+          boxShadow: "0 0 10px var(--acc-glow)",
+        }}
+      />
+    </span>
+  );
+}
+
+function TimelineEntry({
+  title, subtitle, period, description, delay,
+}: {
   title: string;
   subtitle: string;
   period: string;
   description: string;
-  index: number;
-};
-
-function TimelineEntry({
-  title,
-  subtitle,
-  period,
-  description,
-  index,
-}: TimelineEntryProps) {
+  delay: number;
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 16 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      viewport={{ once: false, amount: 0.3 }}
-      className="relative pl-6"
-      style={{ borderLeft: "2px solid var(--border-2)" }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
+      className="relative grid grid-cols-[auto_1fr] gap-5 pb-10 last:pb-0"
     >
-      <span
-        className="absolute -left-1.75 top-1.5 block h-3 w-3 rounded-full"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--accent-from), var(--accent-to))",
-          boxShadow: "0 0 10px var(--glow-strong)",
-        }}
-      />
-      <div className="mb-1 flex flex-wrap items-center gap-2">
-        <p className="text-sm font-bold text-foreground">{title}</p>
+      <div className="flex flex-col items-center">
+        <TimelineDot />
         <span
-          className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border-2)",
-            color: "var(--muted)",
-          }}
-        >
-          {period}
-        </span>
+          className="mt-2 w-px flex-1"
+          style={{ background: "var(--line)" }}
+        />
       </div>
-      <p className="text-xs font-medium text-accent-from mb-1.5">{subtitle}</p>
-      <p className="text-sm leading-relaxed text-muted">{description}</p>
+
+      <div>
+        <p className="font-mono text-[11px] tracking-[0.2em] uppercase mb-1.5" style={{ color: "var(--fg-4)" }}>
+          {period}
+        </p>
+        <h4 className="text-lg font-bold mb-1" style={{ color: "var(--fg)" }}>
+          {title}
+        </h4>
+        <p className="text-sm font-medium mb-3" style={{ color: "var(--acc-1)" }}>
+          {subtitle}
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: "var(--fg-3)" }}>
+          {description}
+        </p>
+      </div>
     </motion.div>
   );
 }
@@ -61,107 +71,50 @@ export default function About() {
 
   return (
     <Section id="about">
-      <SectionHeading>{t.section_about}</SectionHeading>
+      <SectionHeading index="03" kicker="About Me">
+        Building things <br />
+        <span className="text-gradient">that last</span>.
+      </SectionHeading>
 
-      <div className="grid gap-10 lg:grid-cols-[1.2fr,0.8fr]">
-        {/* Left: bio + stats */}
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: false, amount: 0.3 }}
-            className="text-base leading-relaxed text-muted"
-          >
+      <div className="grid gap-16 lg:grid-cols-12">
+        {/* Bio */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-7"
+        >
+          <p className="text-xl md:text-2xl leading-relaxed" style={{ color: "var(--fg-2)" }}>
             {t.about_bio}
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
 
-        {/* Right: timeline */}
-        <div className="space-y-8">
-          {/* Experience */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: false, amount: 0.5 }}
-              className="mb-5 flex items-center gap-2"
-            >
-              <span
-                className="flex h-6 w-6 items-center justify-center rounded-md text-accent-from"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border-2)",
-                }}
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="7" width="20" height="14" rx="2" />
-                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                </svg>
-              </span>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted">
-                {t.about_exp_label}
-              </h3>
-            </motion.div>
+        {/* Timeline */}
+        <div className="lg:col-span-5 lg:pl-8 lg:border-l" style={{ borderColor: "var(--line)" }}>
+          <div className="mb-10">
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] mb-6" style={{ color: "var(--fg-4)" }}>
+              ─ {t.about_exp_label}
+            </p>
             <TimelineEntry
               title={t.about_exp_role}
               subtitle={t.about_exp_company}
               period={t.about_exp_period}
               description={t.about_exp_desc}
-              index={0}
+              delay={0.1}
             />
           </div>
 
-          {/* Education */}
           <div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              viewport={{ once: false, amount: 0.5 }}
-              className="mb-5 flex items-center gap-2"
-            >
-              <span
-                className="flex h-6 w-6 items-center justify-center rounded-md text-accent-from"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border-2)",
-                }}
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                </svg>
-              </span>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted">
-                {t.about_edu_label}
-              </h3>
-            </motion.div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] mb-6" style={{ color: "var(--fg-4)" }}>
+              ─ {t.about_edu_label}
+            </p>
             <TimelineEntry
               title={t.about_edu_degree}
               subtitle={t.about_edu_institution}
               period={t.about_edu_period}
               description={t.about_edu_desc}
-              index={1}
+              delay={0.2}
             />
           </div>
         </div>

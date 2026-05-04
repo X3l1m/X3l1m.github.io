@@ -1,183 +1,183 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 import { personalInfo } from "@/lib/data";
-import Section from "./Section";
 import { useT } from "@/contexts/LanguageContext";
+import { useMagnetic } from "@/lib/hooks";
 
-function FloatingOrb({
-  size,
-  x,
-  y,
-  color,
-  delay,
+/* ──────────────────────────────────────────────────────────────────
+ *  Animated word-by-word reveal
+ * ────────────────────────────────────────────────────────────────── */
+function RevealText({ text, delay = 0, className = "" }: { text: string; delay?: number; className?: string }) {
+  const words = text.split(" ");
+  return (
+    <span className={className}>
+      {words.map((word, i) => (
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top" }}>
+          <motion.span
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+              delay: delay + i * 0.05,
+            }}
+            style={{ display: "inline-block", paddingRight: "0.25em" }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────────
+ *  Magnetic CTA button
+ * ────────────────────────────────────────────────────────────────── */
+function MagneticLink({
+  href,
+  children,
+  primary = false,
 }: {
-  size: number;
-  x: string;
-  y: string;
-  color: string;
-  delay: number;
+  href: string;
+  children: React.ReactNode;
+  primary?: boolean;
 }) {
+  const ref = useMagnetic<HTMLAnchorElement>(0.25);
   return (
-    <motion.div
-      animate={{ y: [0, -20, 0], opacity: [0.4, 0.7, 0.4] }}
-      transition={{ duration: 6 + delay, repeat: Infinity, ease: "easeInOut", delay }}
+    <a
+      ref={ref}
+      href={href}
+      className="group relative inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-medium transition-colors"
       style={{
-        position: "absolute",
-        left: x,
-        top: y,
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: color,
-        filter: `blur(${size * 0.4}px)`,
-        pointerEvents: "none",
+        background: primary ? "var(--fg)" : "transparent",
+        color: primary ? "var(--bg)" : "var(--fg)",
+        border: primary ? "none" : "1px solid var(--line-2)",
+        willChange: "transform",
+        transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.3s, border-color 0.3s",
       }}
-    />
+    >
+      <span className="relative z-10">{children}</span>
+      <span
+        aria-hidden
+        className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-500 group-hover:rotate-45"
+        style={{
+          background: primary ? "var(--bg)" : "var(--fg)",
+          color:      primary ? "var(--fg)" : "var(--bg)",
+        }}
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M7 17L17 7M9 7h8v8" />
+        </svg>
+      </span>
+    </a>
   );
 }
 
-function GridLines() {
-  return (
-    <div
-      className="pointer-events-none absolute inset-0 grid-bg opacity-[0.03]"
-      style={{ maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)" }}
-    />
-  );
-}
-
+/* ──────────────────────────────────────────────────────────────────
+ *  Hero
+ * ────────────────────────────────────────────────────────────────── */
 export default function Hero() {
   const { t } = useT();
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-  const rotateX = useTransform(springY, [-300, 300], [4, -4]);
-  const rotateY = useTransform(springX, [-300, 300], [-4, 4]);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left - rect.width / 2);
-      mouseY.set(e.clientY - rect.top - rect.height / 2);
-    };
-    el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
-  }, [mouseX, mouseY]);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Section
+    <section
       id="hero"
-      withContainer={false}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+      ref={sectionRef}
+      className="relative flex min-h-screen flex-col items-start justify-center overflow-hidden px-6 pt-32"
     >
-      <GridLines />
+      {/* Dot grid pattern bottom */}
+      <div className="dot-grid pointer-events-none absolute inset-0 opacity-50" />
 
-      {/* Orbs */}
-      <FloatingOrb size={400} x="-10%" y="-15%" color="radial-gradient(circle, var(--glow-from) 0%, transparent 70%)" delay={0} />
-      <FloatingOrb size={300} x="60%" y="50%" color="radial-gradient(circle, var(--glow-to) 0%, transparent 70%)" delay={2} />
-      <FloatingOrb size={200} x="80%" y="-10%" color="radial-gradient(circle, var(--glow-from) 0%, transparent 70%)" delay={1} />
-
-      <div ref={containerRef} className="relative z-10 mx-auto max-w-4xl text-center w-full">
-
-        {/* Role badge */}
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        {/* Top label row */}
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border-2 bg-card px-4 py-2 text-xs font-medium tracking-widest text-muted uppercase"
-          style={{ boxShadow: "var(--shadow-sm)" }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-10 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em]"
+          style={{ color: "var(--fg-3)" }}
         >
           <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: "var(--accent-from)", boxShadow: "0 0 6px var(--accent-from)" }}
-          />
+            className="relative flex h-2 w-2"
+            aria-hidden
+          >
+            <span
+              className="absolute inset-0 rounded-full pulse-ring"
+              style={{ background: "#10b981", boxShadow: "0 0 0 0 rgba(16,185,129,0.6)" }}
+            />
+            <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: "#10b981" }} />
+          </span>
           {t.hero_role}
         </motion.div>
 
-        {/* Main heading */}
-        <motion.div
-          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <h1 className="mb-6 font-bold tracking-tight leading-[1.1]" style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}>
-            <span className="block text-foreground">Hi, I&apos;m</span>
-            <span
-              className="block text-gradient"
-              style={{ fontSize: "clamp(3.5rem, 10vw, 7rem)" }}
-            >
-              {personalInfo.name.split(" ")[0]}
-            </span>
-          </h1>
-        </motion.div>
+        {/* Display heading */}
+        <h1 className="text-fluid-display font-bold mb-8" style={{ color: "var(--fg)" }}>
+          <span className="block">
+            <RevealText text="Hi, I'm" delay={0.05} />
+          </span>
+          <span className="block text-gradient">
+            <RevealText text={personalInfo.name.split(" ")[0]} delay={0.25} />
+          </span>
+        </h1>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mx-auto mb-12 max-w-lg text-lg leading-relaxed text-muted"
-        >
-          {t.hero_tagline}
-        </motion.p>
+        {/* Description grid */}
+        <div className="grid gap-12 md:grid-cols-12 mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="md:col-span-6 md:col-start-7 text-lg leading-relaxed"
+            style={{ color: "var(--fg-2)" }}
+          >
+            {t.hero_tagline}
+          </motion.p>
+        </div>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex flex-wrap items-center justify-center gap-4"
+          transition={{ duration: 0.7, delay: 0.85 }}
+          className="flex flex-wrap items-center gap-4"
         >
-          <a
-            href="#projects"
-            className="group relative overflow-hidden rounded-full px-8 py-3.5 text-sm font-semibold text-white"
-            style={{
-              background: "linear-gradient(135deg, var(--accent-from), var(--accent-to))",
-              boxShadow: "0 0 30px var(--glow-from), var(--shadow-sm)",
-            }}
-          >
-            <span className="relative z-10">{t.hero_cta_projects}</span>
-            <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100"
-              style={{
-                background: "linear-gradient(135deg, var(--accent-to), var(--accent-from))",
-                transition: "opacity 0.3s ease",
-              }}
-            />
-          </a>
-          <a
-            href="#contact"
-            className="rounded-full border border-border-2 px-8 py-3.5 text-sm font-semibold text-muted transition-all duration-300 hover:border-accent-from hover:text-foreground"
-            style={{ background: "var(--card)", boxShadow: "var(--shadow-sm)" }}
-          >
+          <MagneticLink href="#projects" primary>
+            {t.hero_cta_projects}
+          </MagneticLink>
+          <MagneticLink href="#contact">
             {t.hero_cta_contact}
-          </a>
-        </motion.div>
-
-        {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </motion.div>
+          </MagneticLink>
         </motion.div>
       </div>
-    </Section>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.4 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+      >
+        <span
+          className="font-mono text-[10px] uppercase tracking-[0.3em]"
+          style={{ color: "var(--fg-4)" }}
+        >
+          Scroll
+        </span>
+        <span
+          className="relative block h-10 w-px overflow-hidden"
+          style={{ background: "var(--line-2)" }}
+        >
+          <motion.span
+            animate={{ y: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 block"
+            style={{ background: "linear-gradient(180deg, transparent, var(--acc-1), transparent)" }}
+          />
+        </span>
+      </motion.div>
+    </section>
   );
 }
