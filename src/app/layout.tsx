@@ -28,11 +28,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const deployBranch = process.env.NEXT_PUBLIC_DEPLOY_BRANCH;
+  const isBetaDeploy = Boolean(deployBranch && deployBranch !== "main");
+
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Inject theme before first paint to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else{var d=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {isBetaDeploy && (
+          <div className="beta-badge" aria-label="Beta deployment">
+            <span className="beta-badge__text">BETA</span>
+          </div>
+        )}
         {children}
       </body>
     </html>

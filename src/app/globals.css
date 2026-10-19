@@ -1,27 +1,99 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --muted: #a1a1aa;
-  --border: #27272a;
-  --card: #111113;
-  --accent-from: #6366f1;
-  --accent-to: #8b5cf6;
+/* ─── View Transition: circular reveal from bottom-right ────────── */
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  /* JS animates clip-path on this pseudo-element */
+  animation: none;
+}
+/* Prevent the default cross-fade */
+::view-transition-image-pair(root) {
+  isolation: isolate;
 }
 
+/* ─── Dark theme (default) ─────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --background: #060609;
+  --background-2: #0d0d14;
+  --foreground: #f0f0f5;
+  --muted: #8b8b9e;
+  --muted-2: #5a5a72;
+  --border: #1e1e2e;
+  --border-2: #2a2a3e;
+  --card: #0e0e18;
+  --card-2: #13131f;
+  --surface: #16161f;
+
+  --accent-from: #818cf8;
+  --accent-to: #a78bfa;
+  --accent-mid: #8b5cf6;
+
+  --glow-from: rgba(129, 140, 248, 0.15);
+  --glow-to: rgba(167, 139, 250, 0.15);
+  --glow-strong: rgba(129, 140, 248, 0.3);
+
+  --nav-bg: rgba(10, 10, 18, 0.85);
+  --nav-border: rgba(50, 50, 80, 0.6);
+  --tooltip-bg: rgba(8, 8, 16, 0.95);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+}
+
+/* ─── Light theme ───────────────────────────────────────────────── */
+[data-theme="light"] {
+  --background: #fafafa;
+  --background-2: #f4f4f8;
+  --foreground: #111118;
+  --muted: #6b6b80;
+  --muted-2: #9898b0;
+  --border: #e2e2ee;
+  --border-2: #d0d0e0;
+  --card: #ffffff;
+  --card-2: #f7f7fc;
+  --surface: #f0f0f8;
+
+  --accent-from: #6366f1;
+  --accent-to: #8b5cf6;
+  --accent-mid: #7c3aed;
+
+  --glow-from: rgba(99, 102, 241, 0.1);
+  --glow-to: rgba(139, 92, 246, 0.1);
+  --glow-strong: rgba(99, 102, 241, 0.2);
+
+  --nav-bg: rgba(250, 250, 255, 0.88);
+  --nav-border: rgba(180, 180, 210, 0.6);
+  --tooltip-bg: rgba(255, 255, 255, 0.97);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.16);
+}
+
+/* ─── Tailwind token bridge ─────────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
+  --color-background-2: var(--background-2);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
   --color-border: var(--border);
+  --color-border-2: var(--border-2);
   --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-surface: var(--surface);
   --color-accent-from: var(--accent-from);
   --color-accent-to: var(--accent-to);
+  --color-accent-mid: var(--accent-mid);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ─── Base ──────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
@@ -30,8 +102,179 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Transition all border/bg/color on theme switch */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+/* But don't transition transforms/opacity (breaks animations) */
+.motion-safe\:transition-none,
+[data-motion],
+.animate-spin {
+  transition: none !important;
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: var(--glow-strong);
+  color: var(--foreground);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--glow-from) transparent;
+}
+
+*::-webkit-scrollbar { width: 3px; height: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--glow-from);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--glow-strong);
+}
+
+/* ─── Noise texture overlay (dark only) ────────────────────────── */
+[data-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ─── Beta badge ────────────────────────────────────────────────── */
+.beta-badge {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 231, 255, 0.35);
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.12);
+}
+
+.beta-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: 0 0 8px rgba(103, 232, 249, 0.55);
+}
+
+.beta-badge__text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #cffafe;
+  text-transform: uppercase;
+}
+
+/* ─── Gradient text utility ─────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glow card ─────────────────────────────────────────────────── */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-from), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* ─── Animated gradient border ──────────────────────────────────── */
+@keyframes borderGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.accent-line {
+  background: linear-gradient(90deg, var(--accent-from), var(--accent-to), var(--accent-from));
+  background-size: 200% 100%;
+  animation: borderGlow 3s ease infinite;
+}
+
+/* ─── Floating animation ────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-anim {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Pulse dot ─────────────────────────────────────────────────── */
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s ease infinite;
+}
+
+/* ─── Grid pattern background ───────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+[data-theme="light"] .grid-bg {
+  opacity: 0.4;
+}
+
+/* ─── Shimmer loading effect ────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, var(--glow-from), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@media (max-width: 640px) {
+  .beta-badge {
+    top: 12px;
+    right: 12px;
+    padding: 6px 10px;
+  }
+  .beta-badge__text { font-size: 10px; }
 }
