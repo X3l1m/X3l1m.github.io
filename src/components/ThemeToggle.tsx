@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useState, useEffect, useRef } from "react";
+import glass from "./Glass.module.css";
 
 export default function ThemeToggle() {
   const { theme, toggle } = useTheme();
@@ -27,6 +28,9 @@ export default function ThemeToggle() {
 
   return (
     <motion.button
+      className={glass.surface}
+      data-light-reactive
+      data-light-depth="0.5"
       onClick={handleClick}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       whileTap={{ scale: 0.88 }}
@@ -38,13 +42,6 @@ export default function ThemeToggle() {
         width: 48,
         height: 48,
         borderRadius: "50%",
-        border: "1px solid var(--nav-border)",
-        background: "var(--nav-bg)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        boxShadow: isDark
-          ? "0 0 24px rgba(129,140,248,0.18), 0 4px 16px rgba(0,0,0,0.4)"
-          : "0 0 24px rgba(251,191,36,0.18), 0 4px 16px rgba(0,0,0,0.12)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 import { useT } from "@/contexts/LanguageContext";
 import Section from "./Section";
+import glass from "./Glass.module.css";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -28,20 +29,13 @@ function SocialLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-3 rounded-2xl border border-border p-4 transition-all duration-300"
-      style={{ background: "var(--card)", boxShadow: "var(--shadow-sm)" }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--accent-from)";
-        e.currentTarget.style.boxShadow = "var(--shadow-md), 0 0 0 1px var(--accent-from)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-      }}
+      className={`${glass.surface} group flex items-center gap-3 rounded-2xl p-4`}
+      data-light-reactive
     >
       <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-accent-from transition-all duration-300 group-hover:scale-110"
-        style={{ background: "var(--surface)", border: "1px solid var(--border-2)" }}
+        className={`${glass.chip} flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-accent-from transition-all duration-300 group-hover:scale-110`}
+        data-light-reactive
+        data-light-depth="0.22"
       >
         {icon}
       </span>
@@ -70,7 +64,9 @@ export default function Contact() {
         {/* Headline */}
         <motion.h2
           {...fadeUp(0.06)}
-          className="mb-5 font-bold tracking-tight"
+          className={`${glass.text} mb-5 font-bold tracking-tight`}
+          data-light-reactive
+          data-light-depth="0.4"
           style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
         >
           <span className="text-gradient">{t.contact_headline}</span>
@@ -78,7 +74,8 @@ export default function Contact() {
 
         <motion.p
           {...fadeUp(0.12)}
-          className="mb-12 max-w-md text-base leading-relaxed text-muted"
+          className={`${glass.copy} mb-12 max-w-md text-base leading-relaxed text-muted`}
+          data-light-reactive
         >
           {t.contact_subtext}
         </motion.p>
@@ -87,21 +84,14 @@ export default function Contact() {
         <motion.a
           {...fadeUp(0.18)}
           href={`mailto:${personalInfo.email}`}
-          className="group mb-10 flex w-full max-w-lg items-center justify-between rounded-2xl border border-border p-5 transition-all duration-300"
-          style={{ background: "var(--card)", boxShadow: "var(--shadow-sm)" }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "var(--accent-from)";
-            e.currentTarget.style.boxShadow = "var(--shadow-md), 0 0 20px var(--glow-from)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "var(--border)";
-            e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-          }}
+          className={`${glass.surface} group mb-10 flex w-full max-w-lg items-center justify-between rounded-2xl p-5`}
+          data-light-reactive
         >
           <div className="flex items-center gap-4">
             <span
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-accent-from transition-all duration-300 group-hover:scale-110"
-              style={{ background: "var(--surface)", border: "1px solid var(--border-2)" }}
+              className={`${glass.chip} flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-accent-from transition-all duration-300 group-hover:scale-110`}
+              data-light-reactive
+              data-light-depth="0.22"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -114,8 +104,8 @@ export default function Contact() {
             </div>
           </div>
           <span
-            className="rounded-lg px-3 py-1.5 text-xs font-semibold text-white"
-            style={{ background: "linear-gradient(135deg, var(--accent-from), var(--accent-to))" }}
+            className="rounded-lg px-3 py-1.5 text-xs font-semibold"
+            style={{ background: "linear-gradient(135deg, var(--accent-from), var(--accent-to))", color: "var(--accent-foreground)" }}
           >
             Say hi →
           </span>

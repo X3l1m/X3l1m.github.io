@@ -8,20 +8,20 @@ export const SOURCE_STRINGS = {
   nav_home: "Home",
   nav_projects: "Projects",
   nav_skills: "Skills",
-  nav_about: "About",
+  nav_about: "Background",
   nav_contact: "Contact",
 
   // Hero
   hero_role: "Software Engineer",
   hero_tagline:
-    "Building robust, scalable applications from frontend to backend.",
+    "I learn fast, adapt to the task, and build what's needed.",
   hero_cta_projects: "View Projects",
   hero_cta_contact: "Get in Touch",
 
   // Section headings
   section_projects: "Projects",
   section_skills: "Skills & Tech Stack",
-  section_about: "About Me",
+  section_about: "Background",
 
   // Skill categories
   skillcat_Frontend: "Frontend",
@@ -29,24 +29,18 @@ export const SOURCE_STRINGS = {
   skillcat_Systems: "Systems",
   "skillcat_DevOps & Tools": "DevOps & Tools",
 
-  // About — bio & labels
-  about_bio:
-    "I build things that work and last. As a Full Stack Developer at Basic-Fit I own features end-to-end — from architecture to deployment to monitoring. Three years at Codam (42 Network) taught me to go deep: reimplementing C stdlib, building game engines, writing HTTP servers from scratch. I believe low-level understanding makes high-level code better.",
-  about_exp_label: "Experience",
-  about_edu_label: "Education",
-  // About — experience entry
-  about_exp_role: "Full Stack Developer",
-  about_exp_company: "Basic-Fit",
-  about_exp_period: "May 2025 — Present",
-  about_exp_desc:
-    "Delivering production-ready features across multiple projects. Full lifecycle ownership — design, implementation, testing, deployment (Docker, Azure DevOps) and monitoring (New Relic). Backend integrations with Redis and PostgreSQL.",
-
-  // About — education entry
-  about_edu_degree: "Computer Science",
-  about_edu_institution: "Codam Coding College · 42 Network",
-  about_edu_period: "Oct 2022 — Apr 2025",
-  about_edu_desc:
-    "Self-directed, project-based programming school. Strong CS foundation: data structures, algorithms, multi-threading, networking, and low-level C — reimplementing core stdlib functions from scratch.",
+  // Background — work and education, newest first
+  history_developer_role: "Full Stack Developer",
+  history_martin_period: "May 2026 — Present",
+  history_martin_desc:
+    "The company's sole software developer. Building a CRM, mobile apps and internal tools for customer service, quotations, order tracking and reporting.",
+  history_basicfit_period: "May 2025 — May 2026",
+  history_basicfit_desc:
+    "Worked across different codebases, building features and taking them through testing, deployment and monitoring. Connected services and improved backend reliability.",
+  history_codam_role: "Software Development · 42 Network",
+  history_codam_period: "Oct 2022 — Apr 2025",
+  history_codam_desc:
+    "Learned C, algorithms, memory management and networking through hands-on projects. Built from scratch, reviewed code with peers and learned by solving problems.",
 
   // Project descriptions (keyed by project title)
   proj_ft_transcendence:
@@ -67,7 +61,7 @@ export const SOURCE_STRINGS = {
   contact_email_cta: "Send an Email",
   contact_github: "GitHub",
   contact_linkedin: "LinkedIn",
-  contact_location: "Amsterdam, Netherlands",
+  contact_location: "Eindhoven, Netherlands",
 
   // Footer
   footer_built: "Built with Next.js",

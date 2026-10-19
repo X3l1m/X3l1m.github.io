@@ -6,6 +6,7 @@ import { useT } from "@/contexts/LanguageContext";
 import type { Strings } from "@/lib/strings";
 import SectionHeading from "./SectionHeading";
 import Section from "./Section";
+import glass from "./Glass.module.css";
 
 const CAT_KEY: Record<string, keyof Strings> = {
   Frontend: "skillcat_Frontend",
@@ -162,10 +163,10 @@ const skillIcons: Record<string, React.ReactNode> = {
   ),
   "CI/CD": (
     <svg viewBox="0 0 20 20" width="13" height="13" fill="none" aria-hidden>
-      <path d="M16 10a6 6 0 0 1-10.4 4" stroke="#a78bfa" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M4 10a6 6 0 0 1 10.4-4" stroke="#a78bfa" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M4 6l-.5-2.5-2 1.5" stroke="#a78bfa" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M16 14l.5 2.5 2-1.5" stroke="#a78bfa" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16 10a6 6 0 0 1-10.4 4" stroke="var(--accent-to)" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M4 10a6 6 0 0 1 10.4-4" stroke="var(--accent-to)" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M4 6l-.5-2.5-2 1.5" stroke="var(--accent-to)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16 14l.5 2.5 2-1.5" stroke="var(--accent-to)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
   "Azure DevOps": (
@@ -197,18 +198,19 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: catIndex * 0.08 }}
             viewport={{ once: false, amount: 0.2 }}
-            className="rounded-2xl border border-border p-5"
-            style={{ background: "var(--card)", boxShadow: "var(--shadow-sm)" }}
+            className={`${glass.surface} rounded-2xl p-5`}
+            data-light-reactive
           >
             {/* Category header */}
             <div className="mb-4 flex items-center gap-2.5">
               <span
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-accent-from"
-                style={{ background: "var(--surface)", border: "1px solid var(--border-2)" }}
+                className={`${glass.chip} flex h-7 w-7 items-center justify-center rounded-lg text-accent-from`}
+                data-light-reactive
+                data-light-depth="0.22"
               >
                 {CAT_ICONS[category.name]}
               </span>
-              <h3 className="text-xs font-semibold tracking-widest text-muted uppercase">
+              <h3 className={`${glass.copy} text-xs font-semibold tracking-widest text-muted uppercase`} data-light-reactive>
                 {t[CAT_KEY[category.name]] ?? category.name}
               </h3>
             </div>
@@ -223,20 +225,9 @@ export default function Skills() {
                   transition={{ duration: 0.28, delay: catIndex * 0.06 + skillIndex * 0.04 }}
                   viewport={{ once: false, amount: 0.2 }}
                   whileHover={{ scale: 1.05, y: -1 }}
-                  className="inline-flex cursor-default items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-foreground"
-                  style={{
-                    background: "var(--surface)",
-                    border: "1px solid var(--border-2)",
-                    boxShadow: "var(--shadow-sm)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--accent-from)";
-                    e.currentTarget.style.background = "var(--card-2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-2)";
-                    e.currentTarget.style.background = "var(--surface)";
-                  }}
+                  className={`${glass.chip} inline-flex cursor-default items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground`}
+                  data-light-reactive
+                  data-light-depth="0.22"
                 >
                   {skillIcons[skill] && (
                     <span className="inline-flex shrink-0 items-center">{skillIcons[skill]}</span>

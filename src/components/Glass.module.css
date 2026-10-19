@@ -1,0 +1,73 @@
+.surface {
+  --muted: var(--glass-muted);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background:
+    radial-gradient(440px circle at var(--light-x, 50%) var(--light-y, 0%), color-mix(in srgb, var(--accent-to) calc(var(--light-strength, 0.05) * 100%), transparent), transparent 70%),
+    linear-gradient(135deg, var(--glass-sheen), transparent 65%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  backdrop-filter: blur(22px) saturate(135%);
+  box-shadow:
+    inset var(--rim-x, 0px) var(--rim-y, 1px) 0 rgba(var(--glass-light-rgb), var(--rim-strength, 0.22)),
+    inset 0 -1px 0 var(--glass-bottom-edge),
+    var(--cast-x, 0px) var(--cast-y, 10px) var(--cast-blur, 28px) rgba(var(--glass-shadow-rgb), var(--cast-opacity, 0.16)),
+    0 2px 5px rgba(var(--glass-shadow-rgb), 0.05);
+  transition-property: background-color, border-color, color;
+}
+
+.surface:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.chip {
+  --cast-x: 0px;
+  --cast-y: 2px;
+  --cast-blur: 8px;
+  --cast-opacity: 0.1;
+  background: var(--glass-chip);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-sheen),
+    var(--cast-x, 0px) var(--cast-y, 2px) var(--cast-blur, 8px) rgba(var(--glass-shadow-rgb), var(--cast-opacity, 0.1));
+  transition-property: background-color, border-color, color;
+}
+
+.chip:hover {
+  background: var(--glass-chip-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.surface,
+.chip,
+.copy {
+  text-shadow:
+    var(--text-x, 0px) var(--text-y, 1px) var(--text-blur, 3px)
+    color-mix(in srgb, var(--accent-from) calc(var(--text-opacity, 0.12) * 100%), transparent);
+}
+
+/* Filtering the lettering also supports headings with clipped gradient fills. */
+.text {
+  text-shadow: none;
+  filter: drop-shadow(
+    calc(var(--cast-x, 0px) * 0.75)
+    calc(var(--cast-y, 3px) * 0.75)
+    calc(var(--cast-blur, 8px) * 0.35)
+    color-mix(in srgb, var(--accent-from) calc(var(--text-opacity, 0.12) * 100%), transparent)
+  );
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .surface {
+    background: var(--card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .surface {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}

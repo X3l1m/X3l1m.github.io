@@ -1,6 +1,7 @@
 "use client";
 
 import { useT } from "@/contexts/LanguageContext";
+import glass from "./Glass.module.css";
 
 export default function Footer() {
   const { t } = useT();
@@ -10,7 +11,7 @@ export default function Footer() {
       className="border-t border-border px-6 py-8"
       style={{ background: "var(--background-2)" }}
     >
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 text-xs text-muted">
+      <div className={`${glass.copy} mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 text-xs text-muted`} data-light-reactive>
         <span>
           &copy; {new Date().getFullYear()}{" "}
           <span className="font-semibold text-foreground">Selim Yildirim</span>

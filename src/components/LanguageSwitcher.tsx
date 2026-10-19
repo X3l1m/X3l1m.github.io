@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useT } from "@/contexts/LanguageContext";
+import glass from "./Glass.module.css";
 
 function GlobeIcon() {
   return (
@@ -66,6 +67,9 @@ export default function LanguageSwitcher() {
     <div ref={ref} style={{ position: "fixed", top: 16, left: 16, zIndex: 80 }}>
       {/* Trigger */}
       <motion.button
+        className={glass.surface}
+        data-light-reactive
+        data-light-depth="0.5"
         onClick={() => { setOpen((o) => !o); setSearch(""); }}
         aria-label="Change language"
         whileTap={{ scale: 0.94 }}
@@ -75,25 +79,18 @@ export default function LanguageSwitcher() {
           gap: 6,
           padding: "7px 13px",
           borderRadius: 999,
-          border: "1px solid var(--nav-border)",
-          background: "var(--nav-bg)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
           color: "var(--muted)",
           fontSize: 11,
           fontWeight: 600,
           letterSpacing: "0.05em",
           cursor: "pointer",
-          boxShadow: "var(--shadow-sm)",
           transition: "color 0.2s, border-color 0.2s",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "var(--foreground)";
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent-from)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)";
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--nav-border)";
         }}
       >
         {isTranslating ? <Spinner /> : <GlobeIcon />}
@@ -104,6 +101,8 @@ export default function LanguageSwitcher() {
       <AnimatePresence>
         {open && (
           <motion.div
+            className={glass.surface}
+            data-light-reactive
             initial={{ opacity: 0, y: -8, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.96 }}
@@ -114,11 +113,6 @@ export default function LanguageSwitcher() {
               left: 0,
               width: 220,
               borderRadius: 14,
-              border: "1px solid var(--nav-border)",
-              background: "var(--nav-bg)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              boxShadow: "var(--shadow-lg)",
               overflow: "hidden",
             }}
           >

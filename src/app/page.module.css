@@ -1,0 +1,6 @@
+.canvas {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+}
+

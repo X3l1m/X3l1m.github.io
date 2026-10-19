@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useT } from "@/contexts/LanguageContext";
+import { projectsEnabled } from "@/lib/data";
+import glass from "./Glass.module.css";
 import {
   motion,
   useMotionValue,
@@ -52,7 +54,7 @@ const navItems = [
   },
   {
     id: "about",
-    label: "About",
+    label: "Background",
     href: "#about",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
@@ -72,11 +74,17 @@ const navItems = [
       </svg>
     ),
   },
-];
+].filter((item) => projectsEnabled || item.id !== "projects");
 
 export default function FloatNav() {
   const { t } = useT();
-  const navLabels = [t.nav_home, t.nav_projects, t.nav_skills, t.nav_about, t.nav_contact];
+  const navLabels = [
+    t.nav_home,
+    ...(projectsEnabled ? [t.nav_projects] : []),
+    t.nav_skills,
+    t.nav_about,
+    t.nav_contact,
+  ];
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -141,19 +149,35 @@ export default function FloatNav() {
   }, []);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
     const root = document.getElementById("snap-root");
-    navItems.forEach(({ id }, i) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting && !isAnimatingRef.current) setActive(i); },
-        { root, threshold: 0.55, rootMargin: "-10% 0px -10% 0px" },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+    if (!root) return;
+    let observer: IntersectionObserver;
+
+    const observeSections = () => {
+      observer?.disconnect();
+      // Use the viewport's center so long history sections work on small screens.
+      const inset = Math.max(0, root.clientHeight / 2 - 1);
+      observer = new IntersectionObserver((entries) => {
+        if (isAnimatingRef.current) return;
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (!visible) return;
+        const index = navItems.findIndex((item) => item.id === visible.target.id);
+        if (index !== -1) setActive(index);
+      }, { root, threshold: 0, rootMargin: `-${inset}px 0px -${inset}px 0px` });
+
+      navItems.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section) observer.observe(section);
+      });
+    };
+
+    observeSections();
+    const resizeObserver = new ResizeObserver(observeSections);
+    resizeObserver.observe(root);
+    return () => {
+      observer.disconnect();
+      resizeObserver.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -217,6 +241,9 @@ export default function FloatNav() {
       </svg>
 
       <nav
+        className={glass.surface}
+        data-light-reactive
+        data-light-depth="0.7"
         style={{
           position: "fixed",
           right: isMobile ? "auto" : 20,
@@ -229,11 +256,6 @@ export default function FloatNav() {
           height: navHeight,
           padding: 8,
           borderRadius: isMobile ? 999 : 999,
-          border: "1px solid var(--nav-border)",
-          background: "var(--nav-bg)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          boxShadow: "var(--shadow-md)",
         }}
         aria-label="Section navigation"
       >
@@ -249,7 +271,7 @@ export default function FloatNav() {
                 top: isMobile ? 0 : i * STRIDE,
                 left: isMobile ? i * STRIDE : 0,
                 borderRadius: "50%",
-                background: "var(--surface)",
+                background: "var(--glass-chip)",
               }}
             />
           ))}
@@ -294,7 +316,7 @@ export default function FloatNav() {
               background: "transparent",
               border: "none",
               cursor: "pointer",
-              color: active === i ? "#ffffff" : "var(--muted)",
+              color: active === i ? "var(--accent-foreground)" : "var(--muted)",
               transition: "color 0.25s ease",
               zIndex: 2,
               padding: 0,
