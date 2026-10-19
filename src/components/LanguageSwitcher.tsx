@@ -68,8 +68,6 @@ export default function LanguageSwitcher() {
       {/* Trigger */}
       <motion.button
         className={glass.surface}
-        data-light-reactive
-        data-light-depth="0.5"
         onClick={() => { setOpen((o) => !o); setSearch(""); }}
         aria-label="Change language"
         whileTap={{ scale: 0.94 }}
@@ -102,7 +100,6 @@ export default function LanguageSwitcher() {
         {open && (
           <motion.div
             className={glass.surface}
-            data-light-reactive
             initial={{ opacity: 0, y: -8, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.96 }}

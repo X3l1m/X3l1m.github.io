@@ -3,7 +3,6 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect } from "react";
 import styles from "./PointerLight.module.css";
-import { surfaceLighting } from "@/lib/surfaceLighting";
 
 const motionPreference =
   "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
@@ -23,39 +22,6 @@ export default function PointerLight() {
     let frame = 0;
     let lastTime = 0;
     let lastHoverCheck = 0;
-    let lastLightingFrame = 0;
-    let lastMeasurement = -Infinity;
-    let geometryDirty = true;
-    let surfaces: { element: HTMLElement; rect: DOMRect; depth: number }[] = [];
-
-    const markGeometryDirty = () => { geometryDirty = true; };
-    const lightSurfaces = (time: number) => {
-      if (time - lastLightingFrame < 32) return;
-      lastLightingFrame = time;
-      // Read all bounds before writing styles. Scrolls invalidate viewport positions.
-      if (geometryDirty || time - lastMeasurement > 250) {
-        surfaces = Array.from(document.querySelectorAll<HTMLElement>("[data-light-reactive]")).map((element) => ({
-          element,
-          rect: element.getBoundingClientRect(),
-          depth: Number(element.dataset.lightDepth || 1),
-        }));
-        geometryDirty = false;
-        lastMeasurement = time;
-      }
-      for (const { element, rect, depth } of surfaces) {
-        if (rect.bottom < 0 || rect.top > window.innerHeight || rect.right < 0 || rect.left > window.innerWidth) continue;
-        for (const [property, value] of Object.entries(surfaceLighting(rect, x.get(), y.get(), depth))) {
-          element.style.setProperty(property, value);
-        }
-      }
-    };
-
-    const resetSurfaces = () => {
-      const properties = Object.keys(surfaceLighting({ left: 0, top: 0, width: 1, height: 1 }, 0, 0));
-      document.querySelectorAll<HTMLElement>("[data-light-reactive]").forEach((element) => {
-        properties.forEach((property) => element.style.removeProperty(property));
-      });
-    };
 
     // Switching modes changes only the destination, never the visible position.
     const startWandering = () => {
@@ -111,7 +77,6 @@ export default function PointerLight() {
         x.set(x.get() + (dx / distance) * step);
         y.set(y.get() + (dy / distance) * step);
       }
-      lightSurfaces(time);
       frame = requestAnimationFrame(tick);
     };
 
@@ -124,7 +89,6 @@ export default function PointerLight() {
         frame = requestAnimationFrame(tick);
       } else {
         opacity.set(0);
-        resetSurfaces();
       }
     };
 
@@ -145,14 +109,9 @@ export default function PointerLight() {
     document.documentElement.addEventListener("pointerleave", startWandering);
     document.documentElement.addEventListener("mouseleave", startWandering);
     document.addEventListener("visibilitychange", onVisibilityChange);
-    window.addEventListener("resize", markGeometryDirty);
-    document.addEventListener("scroll", markGeometryDirty, { capture: true, passive: true });
 
     return () => {
       cancelAnimationFrame(frame);
-      resetSurfaces();
-      window.removeEventListener("resize", markGeometryDirty);
-      document.removeEventListener("scroll", markGeometryDirty, true);
       preference.removeEventListener("change", syncAnimation);
       window.removeEventListener("pointermove", follow);
       window.removeEventListener("mousemove", follow);

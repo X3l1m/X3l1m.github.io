@@ -29,8 +29,6 @@ export default function ThemeToggle() {
   return (
     <motion.button
       className={glass.surface}
-      data-light-reactive
-      data-light-depth="0.5"
       onClick={handleClick}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       whileTap={{ scale: 0.88 }}

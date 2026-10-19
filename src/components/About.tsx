@@ -48,7 +48,7 @@ export default function About() {
 
       <div className="space-y-4">
         {entries.map((entry) => (
-          <article key={entry.id} className={`${glass.surface} ${styles.entry}`} data-light-reactive aria-labelledby={`${entry.id}-title`}>
+          <article key={entry.id} className={`${glass.surface} ${styles.entry}`} aria-labelledby={`${entry.id}-title`}>
             <div className={styles.image} aria-hidden="true">
               <Image
                 src={entry.image}
@@ -61,7 +61,7 @@ export default function About() {
               />
             </div>
 
-            <div className={`${styles.content} ${glass.copy}`} data-light-reactive>
+            <div className={styles.content}>
               <p className="mb-2 text-xs font-medium tracking-wide text-muted">
                 {entry.period}
               </p>

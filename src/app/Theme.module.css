@@ -12,20 +12,18 @@
   --card-2: #13131f;
   --surface: #16161f;
 
-  --accent-from: #a18ade;
-  --accent-to: #b6a4dd;
-  --accent-mid: #9682c2;
+  --accent-from: #8b4de8;
+  --accent-to: #a46af4;
+  --accent-mid: #7c3aed;
   --accent-foreground: #15121a;
 
   --glass-fill: rgba(25, 23, 35, 0.42);
   --glass-sheen: rgba(245, 237, 255, 0.065);
   --glass-border: rgba(224, 213, 250, 0.17);
-  --glass-border-hover: rgba(228, 216, 255, 0.34);
+  --glass-border-hover: rgba(164, 106, 244, 0.45);
   --glass-bottom-edge: rgba(0, 0, 0, 0.18);
   --glass-chip: rgba(224, 213, 250, 0.055);
   --glass-chip-hover: rgba(224, 213, 250, 0.11);
-  --glass-light-rgb: 245, 235, 255;
-  --glass-shadow-rgb: 0, 0, 0;
   --glass-muted: #c1bacd;
 
   --glow-from: color-mix(in srgb, var(--accent-from) 15%, transparent);
@@ -54,20 +52,18 @@
   --card-2: #f7f7fc;
   --surface: #f0f0f8;
 
-  --accent-from: #76608f;
-  --accent-to: #8a739f;
-  --accent-mid: #806a98;
+  --accent-from: #6d28d9;
+  --accent-to: #7c3aed;
+  --accent-mid: #7132df;
   --accent-foreground: #ffffff;
 
   --glass-fill: rgba(255, 255, 255, 0.38);
   --glass-sheen: rgba(255, 255, 255, 0.52);
   --glass-border: rgba(255, 255, 255, 0.76);
-  --glass-border-hover: rgba(155, 134, 183, 0.38);
+  --glass-border-hover: rgba(109, 40, 217, 0.38);
   --glass-bottom-edge: rgba(112, 96, 135, 0.1);
   --glass-chip: rgba(255, 255, 255, 0.28);
   --glass-chip-hover: rgba(255, 255, 255, 0.55);
-  --glass-light-rgb: 255, 253, 247;
-  --glass-shadow-rgb: 65, 48, 89;
   --glass-muted: #62596f;
 
   --glow-from: color-mix(in srgb, var(--accent-from) 10%, transparent);

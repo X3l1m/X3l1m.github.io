@@ -1,6 +1,6 @@
 .stage {
-  --pointer-highlight: color-mix(in srgb, var(--accent-to) 36%, transparent);
-  --pointer-falloff: color-mix(in srgb, var(--accent-to) 13%, transparent);
+  --pointer-highlight: color-mix(in srgb, var(--accent-mid) 54%, transparent);
+  --pointer-falloff: color-mix(in srgb, var(--accent-from) 19%, transparent);
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -32,8 +32,8 @@
 }
 
 :global([data-theme="light"]) .stage {
-  --pointer-highlight: color-mix(in srgb, var(--accent-from) 42%, transparent);
-  --pointer-falloff: color-mix(in srgb, var(--accent-to) 18%, transparent);
+  --pointer-highlight: color-mix(in srgb, var(--accent-from) 34%, transparent);
+  --pointer-falloff: color-mix(in srgb, var(--accent-mid) 13%, transparent);
 }
 
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {

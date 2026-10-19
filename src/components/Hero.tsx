@@ -43,11 +43,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`${styles.role} ${glass.text} mb-8 inline-block text-sm font-medium tracking-[0.24em] uppercase sm:text-base`}
-          data-light-reactive
-          data-light-depth="0.15"
+          className="mb-8 inline-block text-sm font-medium tracking-[0.24em] uppercase sm:text-base"
         >
-          {t.hero_role}
+          <span className={styles.role}>{t.hero_role}</span>
         </motion.p>
 
         {/* Main heading */}
@@ -57,13 +55,13 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <h1 className={`${glass.text} mb-6 font-bold tracking-tight leading-[1.1]`} data-light-reactive data-light-depth="0.45" style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}>
+          <h1 className="mb-6 font-bold tracking-tight leading-[1.1]" style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}>
             <span className="block text-foreground">Hi, I&apos;m</span>
             <span
-              className="block text-gradient"
+              className="block"
               style={{ fontSize: "clamp(3.5rem, 10vw, 7rem)" }}
             >
-              {personalInfo.name.split(" ")[0]}
+              <span className="text-gradient">{personalInfo.name.split(" ")[0]}</span>
             </span>
           </h1>
         </motion.div>
@@ -73,8 +71,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className={`${glass.copy} mx-auto mb-12 max-w-lg text-lg leading-relaxed text-muted`}
-          data-light-reactive
+          className="mx-auto mb-12 max-w-lg text-lg leading-relaxed text-muted"
         >
           {t.hero_tagline}
         </motion.p>
@@ -109,8 +106,6 @@ export default function Hero() {
           <a
             href="#contact"
             className={`${glass.surface} rounded-full px-8 py-3.5 text-sm font-semibold text-muted hover:text-foreground`}
-            data-light-reactive
-            data-light-depth="0.6"
           >
             {t.hero_cta_contact}
           </a>

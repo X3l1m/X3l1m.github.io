@@ -242,8 +242,6 @@ export default function FloatNav() {
 
       <nav
         className={glass.surface}
-        data-light-reactive
-        data-light-depth="0.7"
         style={{
           position: "fixed",
           right: isMobile ? "auto" : 20,

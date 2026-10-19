@@ -199,18 +199,15 @@ export default function Skills() {
             transition={{ duration: 0.45, delay: catIndex * 0.08 }}
             viewport={{ once: false, amount: 0.2 }}
             className={`${glass.surface} rounded-2xl p-5`}
-            data-light-reactive
           >
             {/* Category header */}
             <div className="mb-4 flex items-center gap-2.5">
               <span
                 className={`${glass.chip} flex h-7 w-7 items-center justify-center rounded-lg text-accent-from`}
-                data-light-reactive
-                data-light-depth="0.22"
               >
                 {CAT_ICONS[category.name]}
               </span>
-              <h3 className={`${glass.copy} text-xs font-semibold tracking-widest text-muted uppercase`} data-light-reactive>
+              <h3 className="text-xs font-semibold tracking-widest text-muted uppercase">
                 {t[CAT_KEY[category.name]] ?? category.name}
               </h3>
             </div>
@@ -226,8 +223,6 @@ export default function Skills() {
                   viewport={{ once: false, amount: 0.2 }}
                   whileHover={{ scale: 1.05, y: -1 }}
                   className={`${glass.chip} inline-flex cursor-default items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground`}
-                  data-light-reactive
-                  data-light-depth="0.22"
                 >
                   {skillIcons[skill] && (
                     <span className="inline-flex shrink-0 items-center">{skillIcons[skill]}</span>
