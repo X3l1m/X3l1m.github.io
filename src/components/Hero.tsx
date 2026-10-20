@@ -35,7 +35,7 @@ export default function Hero() {
     <Section
       id="hero"
       withContainer={false}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+      className="relative flex items-center justify-center overflow-hidden"
     >
       <div ref={containerRef} className="relative z-10 mx-auto max-w-4xl text-center w-full">
 
@@ -124,7 +124,7 @@ export default function Hero() {
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 5v14M5 12l7 7 7-7" />
           </svg>
         </motion.div>

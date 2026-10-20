@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import styles from "./Layout.module.css";
 
 type SectionProps = {
   id: string;
@@ -28,8 +29,9 @@ export default function Section({
   snap = true,
 }: SectionProps) {
   const sectionClassName = cx(
-    withDefaultSpacing ? "px-6 py-24" : undefined,
-    fullHeight ? "min-h-screen" : undefined,
+    styles.section,
+    withDefaultSpacing ? "py-24" : undefined,
+    fullHeight ? styles.fullHeight : undefined,
     centered ? "flex items-center" : undefined,
     snap ? "snap-start snap-always" : undefined,
     className,
@@ -38,7 +40,7 @@ export default function Section({
   return (
     <section id={id} className={sectionClassName}>
       {withContainer ? (
-        <div className={cx("mx-auto w-full max-w-5xl", contentClassName)}>
+        <div className={cx(styles.container, "mx-auto w-full", contentClassName)}>
           {children}
         </div>
       ) : (

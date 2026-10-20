@@ -2,8 +2,8 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: 190px;
-  border-radius: 16px;
+  min-height: 11.875rem;
+  border-radius: 1rem;
 }
 
 .image {
@@ -20,7 +20,7 @@
 .content {
   position: relative;
   width: 62%;
-  padding: 24px 28px;
+  padding: 1.5rem 1.75rem;
 }
 
 :global([data-theme="light"]) .image {
@@ -29,7 +29,7 @@
 
 @media (max-width: 640px) {
   .entry {
-    min-height: 285px;
+    min-height: 17.8125rem;
   }
 
   .image {
@@ -43,7 +43,7 @@
 
   .content {
     width: 100%;
-    padding: 24px 22px 64px;
+    padding: 1.5rem 1.375rem 4rem;
   }
 }
 

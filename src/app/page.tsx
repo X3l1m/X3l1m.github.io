@@ -20,7 +20,7 @@ export default function Home() {
         <LanguageSwitcher />
         <FloatNav />
         <ThemeToggle />
-        <main id="snap-root" className={`${styles.canvas} h-screen overflow-y-auto`}>
+        <main id="snap-root" className={`${styles.canvas} overflow-y-auto`}>
           <PointerLight />
           <Hero />
           {projectsEnabled && <Projects />}

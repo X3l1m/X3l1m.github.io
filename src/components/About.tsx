@@ -43,7 +43,7 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" withDefaultSpacing={false} className="px-6 py-20 md:py-16">
+    <Section id="about" withDefaultSpacing={false} className="py-20 md:py-16">
       <SectionHeading>{t.section_about}</SectionHeading>
 
       <div className="space-y-4">
@@ -55,7 +55,7 @@ export default function About() {
                 alt=""
                 fill
                 unoptimized
-                sizes="(max-width: 640px) 100vw, 650px"
+                sizes="(max-width: 640px) 100vw, 54vw"
                 className="object-cover"
                 style={{ objectPosition: entry.imagePosition }}
               />
@@ -71,7 +71,7 @@ export default function About() {
               <p className="mt-1 text-xs font-medium text-accent-from sm:text-sm">
                 {entry.role}<span className="mx-2 text-muted-2" aria-hidden="true">/</span>{entry.location}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-3 max-w-[65ch] text-sm leading-relaxed text-muted">
                 {entry.description}
               </p>
             </div>

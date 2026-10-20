@@ -28,17 +28,19 @@ export default function ThemeToggle() {
 
   return (
     <motion.button
+      id="theme-toggle"
       className={glass.surface}
       onClick={handleClick}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       whileTap={{ scale: 0.88 }}
       style={{
         position: "fixed",
-        bottom: 24,
-        right: 24,
+        top: "var(--theme-toggle-top)",
+        bottom: "var(--theme-toggle-bottom)",
+        right: "1.5rem",
         zIndex: 10000,
-        width: 48,
-        height: 48,
+        width: "3rem",
+        height: "3rem",
         borderRadius: "50%",
         cursor: "pointer",
         display: "flex",
@@ -57,7 +59,7 @@ export default function ThemeToggle() {
             transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
             style={{ position: "absolute", display: "flex" }}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-from)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="var(--accent-from)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </motion.span>
@@ -70,7 +72,7 @@ export default function ThemeToggle() {
             transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
             style={{ position: "absolute", display: "flex" }}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="5" />
               <line x1="12" y1="1" x2="12" y2="3" />
               <line x1="12" y1="21" x2="12" y2="23" />

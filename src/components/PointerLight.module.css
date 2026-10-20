@@ -20,7 +20,7 @@
 .light::before {
   content: "";
   position: absolute;
-  width: clamp(420px, 65vw, 880px);
+  width: clamp(26.25rem, 65vw, 55rem);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background: radial-gradient(

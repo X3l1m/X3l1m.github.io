@@ -7,7 +7,7 @@ import glass from "./Glass.module.css";
 
 function GlobeIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="0.8125rem" height="0.8125rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <line x1="2" y1="12" x2="22" y2="12" />
       <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -17,7 +17,7 @@ function GlobeIcon() {
 
 function Spinner() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
+    <svg width="0.8125rem" height="0.8125rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
   );
@@ -64,7 +64,7 @@ export default function LanguageSwitcher() {
   }, [open]);
 
   return (
-    <div ref={ref} style={{ position: "fixed", top: 16, left: 16, zIndex: 80 }}>
+    <div ref={ref} style={{ position: "fixed", top: "1rem", left: "1rem", zIndex: 80 }}>
       {/* Trigger */}
       <motion.button
         className={glass.surface}
@@ -74,11 +74,11 @@ export default function LanguageSwitcher() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 6,
-          padding: "7px 13px",
+          gap: "0.375rem",
+          padding: "0.4375rem 0.8125rem",
           borderRadius: 999,
           color: "var(--muted)",
-          fontSize: 11,
+          fontSize: "0.6875rem",
           fontWeight: 600,
           letterSpacing: "0.05em",
           cursor: "pointer",
@@ -106,15 +106,15 @@ export default function LanguageSwitcher() {
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={{
               position: "absolute",
-              top: "calc(100% + 8px)",
+              top: "calc(100% + 0.5rem)",
               left: 0,
-              width: 220,
-              borderRadius: 14,
+              width: "min(13.75rem, calc(100vw - 2rem))",
+              borderRadius: "0.875rem",
               overflow: "hidden",
             }}
           >
             {/* Search */}
-            <div style={{ padding: "8px 10px", borderBottom: "1px solid var(--border)" }}>
+            <div style={{ padding: "0.5rem 0.625rem", borderBottom: "1px solid var(--border)" }}>
               <input
                 ref={searchRef}
                 value={search}
@@ -124,9 +124,9 @@ export default function LanguageSwitcher() {
                   width: "100%",
                   background: "var(--surface)",
                   border: "1px solid var(--border-2)",
-                  borderRadius: 8,
-                  padding: "5px 10px",
-                  fontSize: 12,
+                  borderRadius: "0.5rem",
+                  padding: "0.3125rem 0.625rem",
+                  fontSize: "0.75rem",
                   color: "var(--foreground)",
                   outline: "none",
                 }}
@@ -134,20 +134,20 @@ export default function LanguageSwitcher() {
             </div>
 
             {/* List */}
-            <div style={{ maxHeight: 220, overflowY: "auto" }}>
+            <div style={{ maxHeight: "min(13.75rem, 60dvh)", overflowY: "auto" }}>
               {langsLoading ? (
-                <div style={{ padding: "16px", textAlign: "center", color: "var(--muted-2)", fontSize: 12 }}>
+                <div style={{ padding: "1rem", textAlign: "center", color: "var(--muted-2)", fontSize: "0.75rem" }}>
                   Loading…
                 </div>
               ) : filtered.length === 0 ? (
-                <div style={{ padding: "16px", textAlign: "center", color: "var(--muted-2)", fontSize: 12 }}>
+                <div style={{ padding: "1rem", textAlign: "center", color: "var(--muted-2)", fontSize: "0.75rem" }}>
                   No results
                 </div>
               ) : (
                 filtered.map((l, idx) => (
                   <div key={l.code}>
                     {!search && idx === PINNED.length && (
-                      <div style={{ margin: "4px 10px", borderTop: "1px solid var(--border)" }} />
+                      <div style={{ margin: "0.25rem 0.625rem", borderTop: "1px solid var(--border)" }} />
                     )}
                     <button
                       onClick={() => { setLang(l.code); setOpen(false); setSearch(""); }}
@@ -156,12 +156,12 @@ export default function LanguageSwitcher() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         width: "100%",
-                        padding: "7px 12px",
+                        padding: "0.4375rem 0.75rem",
                         background: l.code === lang ? "var(--glow-from)" : "transparent",
                         border: "none",
                         cursor: "pointer",
                         color: l.code === lang ? "var(--accent-from)" : "var(--muted)",
-                        fontSize: 12,
+                        fontSize: "0.75rem",
                         textAlign: "left",
                         transition: "background 0.15s, color 0.15s",
                       }}
@@ -179,7 +179,7 @@ export default function LanguageSwitcher() {
                       }}
                     >
                       <span>{l.name}</span>
-                      <span style={{ fontSize: 10, color: l.code === lang ? "var(--accent-from)" : "var(--muted-2)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+                      <span style={{ fontSize: "0.625rem", color: l.code === lang ? "var(--accent-from)" : "var(--muted-2)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
                         {l.code.toUpperCase()}
                       </span>
                     </button>

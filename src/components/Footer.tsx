@@ -1,16 +1,17 @@
 "use client";
 
 import { useT } from "@/contexts/LanguageContext";
+import styles from "./Layout.module.css";
 
 export default function Footer() {
   const { t } = useT();
 
   return (
     <footer
-      className="border-t border-border px-6 py-8"
+      className={`${styles.section} border-t border-border py-8`}
       style={{ background: "var(--background-2)" }}
     >
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 text-xs text-muted">
+      <div className={`${styles.container} mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-muted`}>
         <span>
           {`© ${new Date().getFullYear()}`}{" "}
           <span className="font-semibold text-foreground">Selim Yildirim</span>

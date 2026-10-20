@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import themeStyles from "./Theme.module.css";
+import layoutStyles from "@/components/Layout.module.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,7 @@ export default function RootLayout({
   const isBetaDeploy = Boolean(deployBranch && deployBranch !== "main");
 
   return (
-    <html lang="en" className={themeStyles.palette} suppressHydrationWarning>
+    <html lang="en" className={`${themeStyles.palette} ${layoutStyles.viewport}`} suppressHydrationWarning>
       <head>
         {/* Inject theme before first paint to prevent flash */}
         <script
