@@ -24,10 +24,10 @@ export const SOURCE_STRINGS = {
   section_about: "Background",
 
   // Skill categories
-  skillcat_Frontend: "Frontend",
-  skillcat_Backend: "Backend",
-  skillcat_Systems: "Systems",
-  "skillcat_DevOps & Tools": "DevOps & Tools",
+  skillcat_languages: "Languages",
+  skillcat_frameworks: "Frameworks",
+  skillcat_databases: "Databases & Caching",
+  skillcat_tools: "Platforms & Tools",
 
   // Background — work and education, newest first
   history_developer_role: "Full Stack Developer",

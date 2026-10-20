@@ -105,19 +105,19 @@ export const projects: Project[] = [
 
 export const skillCategories = [
   {
-    name: "Frontend",
-    skills: ["TypeScript", "React", "Next.js", "HTML/CSS", "JavaScript"],
+    name: "Languages",
+    skills: ["JavaScript", "TypeScript", "C", "C++", "Python", "HTML/CSS"],
   },
   {
-    name: "Backend",
-    skills: ["Node.js", "NestJS", "Express.js", "PostgreSQL", "Redis"],
+    name: "Frameworks",
+    skills: ["React", "Next.js", "NestJS", "Express.js"],
   },
   {
-    name: "Systems",
-    skills: ["C", "C++", "Python", "Linux/Unix"],
+    name: "Databases & Caching",
+    skills: ["PostgreSQL", "Redis"],
   },
   {
-    name: "DevOps & Tools",
-    skills: ["Docker", "Git", "CI/CD", "Azure DevOps", "New Relic"],
+    name: "Platforms & Tools",
+    skills: ["Node.js", "Linux/Unix", "Docker", "Git", "GitHub", "CI/CD", "Azure DevOps", "New Relic"],
   },
 ];
