@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Selim Yildirim",
   role: "Software Engineer",
-  tagline: "Building robust, scalable applications from frontend to backend.",
+  tagline: "I learn fast, adapt to the task, and build what's needed.",
   email: "edibselim1@gmail.com",
   github: "https://github.com/X3l1m",
   linkedin: "https://linkedin.com/in/selim-yildirim-software",
@@ -24,11 +24,20 @@ export const experienceTech = [
 export const experience = [
   {
     role: "Full Stack Developer",
+    company: "Martin Glas",
+    location: "Eindhoven, Netherlands",
+    period: "May 2026 — Present",
+    description:
+      "The company's sole software developer. Building a CRM, mobile apps and internal tools for customer service, quotations, order tracking and reporting.",
+    tech: ["TypeScript", "Next.js", "React Native", "Fastify", "PostgreSQL"],
+  },
+  {
+    role: "Full Stack Developer",
     company: "Basic-Fit",
     location: "Tilburg, Netherlands",
-    period: "May 2025 — Present",
+    period: "May 2025 — May 2026",
     description:
-      "Delivering production-ready features across multiple projects. Owning the full lifecycle — design, implementation, testing, deployment (Docker, Azure DevOps) and monitoring (New Relic). Integrating backend services with Redis and PostgreSQL.",
+      "Worked across different codebases, building features and taking them through testing, deployment and monitoring. Connected services and improved backend reliability.",
     tech: [
       "TypeScript",
       "React",
@@ -45,7 +54,7 @@ export const experience = [
 
 export const education = [
   {
-    degree: "Computer Science",
+    degree: "Software Development - Project-Based Program",
     institution: "Codam Coding College",
     network: "42 Network",
     location: "Amsterdam, Netherlands",
@@ -61,6 +70,9 @@ type Project = {
   demo?: string;
   featured?: boolean;
 };
+
+// TODO: Re-enable the projects section after adding projects ready to publish.
+export const projectsEnabled = false;
 
 export const projects: Project[] = [
   {
@@ -93,19 +105,19 @@ export const projects: Project[] = [
 
 export const skillCategories = [
   {
-    name: "Frontend",
-    skills: ["TypeScript", "React", "Next.js", "HTML/CSS", "JavaScript"],
+    name: "Languages",
+    skills: ["JavaScript", "TypeScript", "C", "C++", "Python", "HTML/CSS"],
   },
   {
-    name: "Backend",
-    skills: ["Node.js", "NestJS", "Express.js", "PostgreSQL", "Redis"],
+    name: "Frameworks",
+    skills: ["React", "Next.js", "NestJS", "Express.js"],
   },
   {
-    name: "Systems",
-    skills: ["C", "C++", "Python", "Linux/Unix"],
+    name: "Databases & Caching",
+    skills: ["PostgreSQL", "Redis"],
   },
   {
-    name: "DevOps & Tools",
-    skills: ["Docker", "Git", "CI/CD", "Azure DevOps", "New Relic"],
+    name: "Platforms & Tools",
+    skills: ["Node.js", "Linux/Unix", "Docker", "Git", "GitHub", "CI/CD", "Azure DevOps", "New Relic"],
   },
 ];

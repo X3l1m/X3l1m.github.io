@@ -38,9 +38,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const next: Theme = theme === "dark" ? "light" : "dark";
     const root = document.documentElement;
 
-    // Origin: bottom-right corner (where the toggle button lives)
-    const x = window.innerWidth - 48;
-    const y = window.innerHeight - 48;
+    // Follow the control's actual position at every viewport size.
+    const toggleRect = document.getElementById("theme-toggle")?.getBoundingClientRect();
+    const x = toggleRect ? toggleRect.left + toggleRect.width / 2 : window.innerWidth;
+    const y = toggleRect ? toggleRect.top + toggleRect.height / 2 : window.innerHeight;
     const maxR = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y),

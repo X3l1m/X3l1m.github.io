@@ -1,0 +1,43 @@
+.stage {
+  --pointer-highlight: color-mix(in srgb, var(--accent-mid) 54%, transparent);
+  --pointer-falloff: color-mix(in srgb, var(--accent-from) 19%, transparent);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  will-change: transform, opacity;
+}
+
+.light::before {
+  content: "";
+  position: absolute;
+  width: clamp(26.25rem, 65vw, 55rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    var(--pointer-highlight) 0%,
+    var(--pointer-falloff) 35%,
+    transparent 70%
+  );
+}
+
+:global([data-theme="light"]) .stage {
+  --pointer-highlight: color-mix(in srgb, var(--accent-from) 34%, transparent);
+  --pointer-falloff: color-mix(in srgb, var(--accent-mid) 13%, transparent);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .stage {
+    display: none;
+  }
+}

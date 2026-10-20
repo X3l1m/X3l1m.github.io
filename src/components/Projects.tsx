@@ -90,7 +90,7 @@ export default function Projects() {
                       className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
                       style={{
                         background: "linear-gradient(135deg, var(--accent-from), var(--accent-to))",
-                        color: "#fff",
+                        color: "var(--accent-foreground)",
                         letterSpacing: "0.03em",
                       }}
                     >

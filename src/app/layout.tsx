@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import themeStyles from "./Theme.module.css";
+import layoutStyles from "@/components/Layout.module.css";
+import VisitorAnalytics from "@/components/VisitorAnalytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +18,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Selim Yildirim — Software Engineer",
   description:
-    "Full Stack Developer building robust, scalable applications. TypeScript, React, Next.js, Node.js.",
+    "Selim Yildirim, Full Stack Developer. I learn fast, adapt to the task, and build what's needed.",
   openGraph: {
     title: "Selim Yildirim — Software Engineer",
-    description: "Full Stack Developer building robust, scalable applications.",
+    description: "I learn fast, adapt to the task, and build what's needed.",
     type: "website",
   },
 };
@@ -32,7 +35,7 @@ export default function RootLayout({
   const isBetaDeploy = Boolean(deployBranch && deployBranch !== "main");
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${themeStyles.palette} ${layoutStyles.viewport}`} suppressHydrationWarning>
       <head>
         {/* Inject theme before first paint to prevent flash */}
         <script
@@ -50,6 +53,7 @@ export default function RootLayout({
           </div>
         )}
         {children}
+        <VisitorAnalytics />
       </body>
     </html>
   );

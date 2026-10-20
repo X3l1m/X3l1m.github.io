@@ -1,0 +1,7 @@
+.canvas {
+  height: 100dvh;
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+}
+

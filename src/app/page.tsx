@@ -9,6 +9,9 @@ import Skills from "@/components/Skills";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import PointerLight from "@/components/PointerLight";
+import { projectsEnabled } from "@/lib/data";
+import styles from "./page.module.css";
 
 export default function Home() {
   return (
@@ -17,9 +20,10 @@ export default function Home() {
         <LanguageSwitcher />
         <FloatNav />
         <ThemeToggle />
-        <main id="snap-root" className="h-screen overflow-y-auto">
+        <main id="snap-root" className={`${styles.canvas} overflow-y-auto`}>
+          <PointerLight />
           <Hero />
-          <Projects />
+          {projectsEnabled && <Projects />}
           <Skills />
           <About />
           <Contact />

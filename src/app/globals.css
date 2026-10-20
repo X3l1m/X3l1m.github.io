@@ -13,67 +13,6 @@
   isolation: isolate;
 }
 
-/* ─── Dark theme (default) ─────────────────────────────────────── */
-:root,
-[data-theme="dark"] {
-  --background: #060609;
-  --background-2: #0d0d14;
-  --foreground: #f0f0f5;
-  --muted: #8b8b9e;
-  --muted-2: #5a5a72;
-  --border: #1e1e2e;
-  --border-2: #2a2a3e;
-  --card: #0e0e18;
-  --card-2: #13131f;
-  --surface: #16161f;
-
-  --accent-from: #818cf8;
-  --accent-to: #a78bfa;
-  --accent-mid: #8b5cf6;
-
-  --glow-from: rgba(129, 140, 248, 0.15);
-  --glow-to: rgba(167, 139, 250, 0.15);
-  --glow-strong: rgba(129, 140, 248, 0.3);
-
-  --nav-bg: rgba(10, 10, 18, 0.85);
-  --nav-border: rgba(50, 50, 80, 0.6);
-  --tooltip-bg: rgba(8, 8, 16, 0.95);
-
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.5);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
-}
-
-/* ─── Light theme ───────────────────────────────────────────────── */
-[data-theme="light"] {
-  --background: #fafafa;
-  --background-2: #f4f4f8;
-  --foreground: #111118;
-  --muted: #6b6b80;
-  --muted-2: #9898b0;
-  --border: #e2e2ee;
-  --border-2: #d0d0e0;
-  --card: #ffffff;
-  --card-2: #f7f7fc;
-  --surface: #f0f0f8;
-
-  --accent-from: #6366f1;
-  --accent-to: #8b5cf6;
-  --accent-mid: #7c3aed;
-
-  --glow-from: rgba(99, 102, 241, 0.1);
-  --glow-to: rgba(139, 92, 246, 0.1);
-  --glow-strong: rgba(99, 102, 241, 0.2);
-
-  --nav-bg: rgba(250, 250, 255, 0.88);
-  --nav-border: rgba(180, 180, 210, 0.6);
-  --tooltip-bg: rgba(255, 255, 255, 0.97);
-
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,0.16);
-}
-
 /* ─── Tailwind token bridge ─────────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
@@ -137,18 +76,6 @@ body {
 }
 *::-webkit-scrollbar-thumb:hover {
   background: var(--glow-strong);
-}
-
-/* ─── Noise texture overlay (dark only) ────────────────────────── */
-[data-theme="dark"] body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 200px;
 }
 
 /* ─── Beta badge ────────────────────────────────────────────────── */

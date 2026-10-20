@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useT } from "@/contexts/LanguageContext";
+import { projectsEnabled } from "@/lib/data";
+import glass from "./Glass.module.css";
 import {
   motion,
   useMotionValue,
@@ -14,6 +16,7 @@ import {
 const ITEM_SIZE = 44;
 const GAP = 12;
 const STRIDE = ITEM_SIZE + GAP;
+const rem = (value: number) => `${value / 16}rem`;
 
 const navItems = [
   {
@@ -21,7 +24,7 @@ const navItems = [
     label: "Home",
     href: "#hero",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="1rem" height="1rem">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
         <polyline points="9,22 9,12 15,12 15,22" />
       </svg>
@@ -32,7 +35,7 @@ const navItems = [
     label: "Projects",
     href: "#projects",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="1rem" height="1rem">
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <line x1="8" y1="21" x2="16" y2="21" />
         <line x1="12" y1="17" x2="12" y2="21" />
@@ -44,7 +47,7 @@ const navItems = [
     label: "Skills",
     href: "#skills",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="1rem" height="1rem">
         <polyline points="16 18 22 12 16 6" />
         <polyline points="8 6 2 12 8 18" />
       </svg>
@@ -52,10 +55,10 @@ const navItems = [
   },
   {
     id: "about",
-    label: "About",
+    label: "Background",
     href: "#about",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="1rem" height="1rem">
         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
         <circle cx="12" cy="7" r="4" />
       </svg>
@@ -66,17 +69,23 @@ const navItems = [
     label: "Contact",
     href: "#contact",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="1rem" height="1rem">
         <rect x="2" y="4" width="20" height="16" rx="2" />
         <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
       </svg>
     ),
   },
-];
+].filter((item) => projectsEnabled || item.id !== "projects");
 
 export default function FloatNav() {
   const { t } = useT();
-  const navLabels = [t.nav_home, t.nav_projects, t.nav_skills, t.nav_about, t.nav_contact];
+  const navLabels = [
+    t.nav_home,
+    ...(projectsEnabled ? [t.nav_projects] : []),
+    t.nav_skills,
+    t.nav_about,
+    t.nav_contact,
+  ];
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -85,6 +94,8 @@ export default function FloatNav() {
   const animationUnlockRef = useRef<number | null>(null);
 
   const blobProgress = useMotionValue(0);
+  // Keep the spring physics while scaling its travel with the controls.
+  const blobOffset = useTransform(blobProgress, rem);
   const blobVelocity = useVelocity(blobProgress);
   const squash = useTransform(blobVelocity, [-600, 0, 600], [0.72, 1, 0.72]);
   const stretch = useTransform(blobVelocity, [-600, 0, 600], [1.5, 1, 1.5]);
@@ -141,19 +152,35 @@ export default function FloatNav() {
   }, []);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
     const root = document.getElementById("snap-root");
-    navItems.forEach(({ id }, i) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting && !isAnimatingRef.current) setActive(i); },
-        { root, threshold: 0.55, rootMargin: "-10% 0px -10% 0px" },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+    if (!root) return;
+    let observer: IntersectionObserver;
+
+    const observeSections = () => {
+      observer?.disconnect();
+      // Use the viewport's center so long history sections work on small screens.
+      const inset = Math.max(0, root.clientHeight / 2 - 1);
+      observer = new IntersectionObserver((entries) => {
+        if (isAnimatingRef.current) return;
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (!visible) return;
+        const index = navItems.findIndex((item) => item.id === visible.target.id);
+        if (index !== -1) setActive(index);
+      }, { root, threshold: 0, rootMargin: `-${inset}px 0px -${inset}px 0px` });
+
+      navItems.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section) observer.observe(section);
+      });
+    };
+
+    observeSections();
+    const resizeObserver = new ResizeObserver(observeSections);
+    resizeObserver.observe(root);
+    return () => {
+      observer.disconnect();
+      resizeObserver.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -217,39 +244,35 @@ export default function FloatNav() {
       </svg>
 
       <nav
+        className={glass.surface}
         style={{
           position: "fixed",
-          right: isMobile ? "auto" : 20,
+          right: isMobile ? "auto" : rem(20),
           top: isMobile ? "auto" : "50%",
           left: isMobile ? "50%" : "auto",
-          bottom: isMobile ? 20 : "auto",
+          bottom: isMobile ? "calc(1.25rem + env(safe-area-inset-bottom))" : "auto",
           transform: isMobile ? "translateX(-50%)" : "translateY(-50%)",
           zIndex: 50,
-          width: navWidth,
-          height: navHeight,
-          padding: 8,
+          width: rem(navWidth),
+          height: rem(navHeight),
+          padding: rem(8),
           borderRadius: isMobile ? 999 : 999,
-          border: "1px solid var(--nav-border)",
-          background: "var(--nav-bg)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          boxShadow: "var(--shadow-md)",
         }}
         aria-label="Section navigation"
       >
         {/* Goo shape layer */}
-        <div style={{ position: "absolute", inset: 8, filter: "url(#liquid-goo)" }}>
+        <div style={{ position: "absolute", inset: rem(8), filter: "url(#liquid-goo)" }}>
           {navItems.map((_, i) => (
             <div
               key={i}
               style={{
                 position: "absolute",
-                width: ITEM_SIZE,
-                height: ITEM_SIZE,
-                top: isMobile ? 0 : i * STRIDE,
-                left: isMobile ? i * STRIDE : 0,
+                width: rem(ITEM_SIZE),
+                height: rem(ITEM_SIZE),
+                top: isMobile ? 0 : rem(i * STRIDE),
+                left: isMobile ? rem(i * STRIDE) : 0,
                 borderRadius: "50%",
-                background: "var(--surface)",
+                background: "var(--glass-chip)",
               }}
             />
           ))}
@@ -257,14 +280,14 @@ export default function FloatNav() {
           <motion.div
             style={{
               position: "absolute",
-              width: ITEM_SIZE,
-              height: ITEM_SIZE,
+              width: rem(ITEM_SIZE),
+              height: rem(ITEM_SIZE),
               top: 0,
               left: 0,
               borderRadius: "50%",
               background: "linear-gradient(135deg, var(--accent-from), var(--accent-to))",
-              x: isMobile ? blobProgress : 0,
-              y: isMobile ? 0 : blobProgress,
+              x: isMobile ? blobOffset : 0,
+              y: isMobile ? 0 : blobOffset,
               scaleX: isMobile ? stretch : squash,
               scaleY: isMobile ? squash : stretch,
               transformOrigin: "center center",
@@ -283,10 +306,10 @@ export default function FloatNav() {
             aria-label={navLabels[i]}
             style={{
               position: "absolute",
-              top: isMobile ? 8 : 8 + i * STRIDE,
-              left: isMobile ? 8 + i * STRIDE : 8,
-              width: ITEM_SIZE,
-              height: ITEM_SIZE,
+              top: rem(isMobile ? 8 : 8 + i * STRIDE),
+              left: rem(isMobile ? 8 + i * STRIDE : 8),
+              width: rem(ITEM_SIZE),
+              height: rem(ITEM_SIZE),
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -294,7 +317,7 @@ export default function FloatNav() {
               background: "transparent",
               border: "none",
               cursor: "pointer",
-              color: active === i ? "#ffffff" : "var(--muted)",
+              color: active === i ? "var(--accent-foreground)" : "var(--muted)",
               transition: "color 0.25s ease",
               zIndex: 2,
               padding: 0,
@@ -316,17 +339,17 @@ export default function FloatNav() {
               transition={{ duration: 0.12, ease: "easeOut" }}
               style={{
                 position: "absolute",
-                right: isMobile ? "auto" : ITEM_SIZE + 24,
-                left: isMobile ? 8 + hovered * STRIDE + ITEM_SIZE / 2 : "auto",
-                top: isMobile ? -8 : 8 + hovered * STRIDE + ITEM_SIZE / 2,
+                right: isMobile ? "auto" : rem(ITEM_SIZE + 24),
+                left: isMobile ? rem(8 + hovered * STRIDE + ITEM_SIZE / 2) : "auto",
+                top: rem(isMobile ? -8 : 8 + hovered * STRIDE + ITEM_SIZE / 2),
                 transform: isMobile ? "translate(-50%, -100%)" : "translateY(-50%)",
                 background: "var(--tooltip-bg)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
                 border: "1px solid var(--border-2)",
-                borderRadius: 8,
-                padding: "5px 11px",
-                fontSize: 11,
+                borderRadius: rem(8),
+                padding: `${rem(5)} ${rem(11)}`,
+                fontSize: rem(11),
                 fontWeight: 600,
                 letterSpacing: "0.02em",
                 color: "var(--foreground)",

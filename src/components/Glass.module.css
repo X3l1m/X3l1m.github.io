@@ -1,0 +1,45 @@
+.surface {
+  --muted: var(--glass-muted);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background:
+    linear-gradient(135deg, var(--glass-sheen), transparent 65%),
+    var(--glass-fill);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  backdrop-filter: blur(22px) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 var(--glass-sheen),
+    inset 0 -1px 0 var(--glass-bottom-edge);
+  transition-property: background-color, border-color, color;
+}
+
+.surface:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.chip {
+  background: var(--glass-chip);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-sheen);
+  transition-property: background-color, border-color, color;
+}
+
+.chip:hover {
+  background: var(--glass-chip-hover);
+  border-color: var(--glass-border-hover);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .surface {
+    background: var(--card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .surface {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}

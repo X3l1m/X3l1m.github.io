@@ -8,7 +8,7 @@
  * - Falls back to English silently on any error
  */
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v5-frameworks-title";
 
 export type LangOption = { code: string; name: string };
 

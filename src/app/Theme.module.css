@@ -1,0 +1,81 @@
+/* ─── Dark theme (default) ─────────────────────────────────────── */
+.palette,
+.palette:global([data-theme="dark"]) {
+  --background: #060609;
+  --background-2: #0d0d14;
+  --foreground: #f0f0f5;
+  --muted: #8b8b9e;
+  --muted-2: #5a5a72;
+  --border: #1e1e2e;
+  --border-2: #2a2a3e;
+  --card: #0e0e18;
+  --card-2: #13131f;
+  --surface: #16161f;
+
+  --accent-from: #8b4de8;
+  --accent-to: #a46af4;
+  --accent-mid: #7c3aed;
+  --accent-foreground: #15121a;
+
+  --glass-fill: rgba(25, 23, 35, 0.42);
+  --glass-sheen: rgba(245, 237, 255, 0.065);
+  --glass-border: rgba(224, 213, 250, 0.17);
+  --glass-border-hover: rgba(164, 106, 244, 0.45);
+  --glass-bottom-edge: rgba(0, 0, 0, 0.18);
+  --glass-chip: rgba(224, 213, 250, 0.055);
+  --glass-chip-hover: rgba(224, 213, 250, 0.11);
+  --glass-muted: #c1bacd;
+
+  --glow-from: color-mix(in srgb, var(--accent-from) 15%, transparent);
+  --glow-to: color-mix(in srgb, var(--accent-to) 15%, transparent);
+  --glow-strong: color-mix(in srgb, var(--accent-from) 30%, transparent);
+
+  --nav-bg: rgba(10, 10, 18, 0.85);
+  --nav-border: rgba(83, 73, 105, 0.6);
+  --tooltip-bg: rgba(8, 8, 16, 0.95);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+}
+
+/* ─── Light theme ───────────────────────────────────────────────── */
+.palette:global([data-theme="light"]) {
+  --background: #f3f1f6;
+  --background-2: #f4f4f8;
+  --foreground: #111118;
+  --muted: #6b6b80;
+  --muted-2: #9898b0;
+  --border: #e2e2ee;
+  --border-2: #d0d0e0;
+  --card: #ffffff;
+  --card-2: #f7f7fc;
+  --surface: #f0f0f8;
+
+  --accent-from: #6d28d9;
+  --accent-to: #7c3aed;
+  --accent-mid: #7132df;
+  --accent-foreground: #ffffff;
+
+  --glass-fill: rgba(255, 255, 255, 0.38);
+  --glass-sheen: rgba(255, 255, 255, 0.52);
+  --glass-border: rgba(255, 255, 255, 0.76);
+  --glass-border-hover: rgba(109, 40, 217, 0.38);
+  --glass-bottom-edge: rgba(112, 96, 135, 0.1);
+  --glass-chip: rgba(255, 255, 255, 0.28);
+  --glass-chip-hover: rgba(255, 255, 255, 0.55);
+  --glass-muted: #62596f;
+
+  --glow-from: color-mix(in srgb, var(--accent-from) 10%, transparent);
+  --glow-to: color-mix(in srgb, var(--accent-to) 10%, transparent);
+  --glow-strong: color-mix(in srgb, var(--accent-from) 20%, transparent);
+
+  --nav-bg: rgba(250, 250, 255, 0.88);
+  --nav-border: rgba(181, 169, 195, 0.6);
+  --tooltip-bg: rgba(255, 255, 255, 0.97);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.16);
+}
+
