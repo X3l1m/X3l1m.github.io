@@ -1,7 +1,7 @@
 .viewport {
-  /* rem keeps text, spacing and controls on one scale, with readable limits. */
-  font-size: clamp(1rem, calc(0.5rem + 0.65vw), 2rem);
-  --content-width: clamp(64rem, 82vw, 92rem);
+  /* Cap the scale by height so ultrawide screens add space, not larger content. */
+  font-size: clamp(1rem, calc(0.5rem + min(0.65vw, 1.1556svh)), 2rem);
+  --content-width: 64rem;
   --theme-toggle-top: 1rem;
   --theme-toggle-bottom: auto;
 }
